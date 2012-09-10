@@ -1,0 +1,11 @@
+/* See license.txt for terms of usage */
+
+/* Domplate Widgets */
+@import url("domTree.css");
+
+/*************************************************************************************************/
+
+.body {
+    font-family: Lucida Grande,Tahoma,sans-serif;
+    font-size: 11px;
+}
