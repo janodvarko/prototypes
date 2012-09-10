@@ -19,6 +19,9 @@ function generateId()
 // ********************************************************************************************* //
 // Object Cache
 
+/**
+ * ObjectStorage represents a simple object database.
+ */
 function ObjectStorage()
 {
     this.input = null;

@@ -19,6 +19,7 @@ ObjectProvider.prototype =
 {
     setUpdateListener: function(listener)
     {
+        // This listener will receive update events.
         this.updateListener = listener;
     },
 
@@ -36,6 +37,7 @@ ObjectProvider.prototype =
         var children = [];
         var id = object.id ? object.id : "";
 
+        // The cache is useing promise pattern
         var self = this;
         this.storage.getObjectProps(id).then(function onGetChildren(props)
         {
@@ -54,15 +56,16 @@ ObjectProvider.prototype =
             }
             else
             {
-                // Update the listner (UI widget), it'll ask for children automatically,
-                // which returns them synchronously from the cache.
+                // Update the listner (UI widget). It'll ask for children automatically,
+                // and they will be returned synchronously since they are cached at this point.
                 self.updateListener.updateObject(object);
             }
         });
 
         sync = false;
 
-        // Returns an empty array if the data are available only asynchronously.
+        // Returns an empty array in case data are not in the cache and needs to be
+        // fetched from the server.
         return children;
     },
 

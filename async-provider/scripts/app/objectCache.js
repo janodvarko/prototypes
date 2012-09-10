@@ -31,6 +31,8 @@ ObjectCache.prototype =
             return Promise.resolve(object);
         }
 
+        // The object is not in the cache so, return it asynchronosly.
+        // This is the place where real application would ask the server.
         var self = this;
         setTimeout(function onGetObject()
         {
@@ -55,6 +57,8 @@ ObjectCache.prototype =
         if (props)
             return Promise.resolve(props);
 
+        // The object is not in the cache so, return it asynchronosly.
+        // This is the place where real application would ask the server.
         var self = this;
         window.setTimeout(function onGetObjectProps()
         {

@@ -30,13 +30,15 @@ storage.initialize("data/object.json").then(function onInitialize(input)
 
     // 2) Asynchronous scenario
     // Create async provider with async access to the storage.
-    // The access is done through a cache that returns only cached data synchronously.
+    // The access is done through a cache that returns cached data synchronously
+    // and fetches new data asynchronously.
     var cache = new ObjectCache(storage);
     var provider = new ObjectAsyncProvider(cache);
     var tree = new DomTree(provider);
 
-    // Set callback to the tree. The provider needs a mechanisme
-    // to update an UI widget when data are received from the server.
+    // Set update callback. The provider needs a mechanisme
+    // to update the associated UI widget when data are received
+    // from the server.
     provider.setUpdateListener(tree);
 
     // Render tree with the given parent element and input data object.
