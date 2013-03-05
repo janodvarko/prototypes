@@ -24,6 +24,9 @@ var OBJECTLINK =
 
 var Reps =
 {
+    OBJECTLINK: OBJECTLINK,
+    OBJECTBOX: OBJECTBOX,
+
     reps: [],
 
     registerRep: function()

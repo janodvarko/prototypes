@@ -76,17 +76,21 @@
     display: inline;
 }
 
-#content .memberRow.equalRow .memberValueWrapper.oldValue {
+/*#content .memberRow.equalRow .memberValueWrapper.oldValue {
     display: none;
+}*/
+
+#content .memberRow .memberSeparator {
+    border-left: 1px solid #EFEFEF;
 }
 
 #content .memberRow.differentRow .memberValueWrapper.oldValue {
     text-decoration: line-through;
 }
 
-#content .memberRow.objectRow .memberValueWrapper.oldValue {
+/*#content .memberRow.objectRow .memberValueWrapper.oldValue {
     display: none;
-}
+}*/
 
 #content .memberRow.differentRow .memberRowHeader {
     background-image: url(images/warning.svg);

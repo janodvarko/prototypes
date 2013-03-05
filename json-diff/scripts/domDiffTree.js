@@ -4,10 +4,11 @@ define([
     "domplate/domplate",
     "domplate/domTree",
     "domplate/reps",
-    "core/trace"
+    "core/trace",
+    "diffObj",
 ],
 
-function(Domplate, DomTree, Reps, Trace) { with (Domplate) {
+function(Domplate, DomTree, Reps, Trace, DiffObj) { with (Domplate) {
 
 // ********************************************************************************************* //
 
@@ -35,8 +36,14 @@ DomDiffTree.prototype = domplate(new DomTree(),
             TD({"class": "memberValueCell"},
                 SPAN({"class": "memberValueWrapper oldValue"},
                     TAG("$member|getValueTag1", {object: "$member|getValue1"})
-                ),
-                SPAN({"class": "memberValueWrapper newValue"},
+                )
+            ),
+            TD({"class": "memberSeparator", width: "10px"}),
+            TD({"class": "memberLabelCell", style: "padding-left: $member|getIndent\\px"},
+                SPAN({"class": "memberLabel $member.type\\Label"}, "$member|getLabel")
+            ),
+            TD({"class": "memberValueCell"},
+                DIV({"class": "memberValueWrapper newValue"},
                     TAG("$member|getValueTag2", {object: "$member|getValue2"})
                 )
             )
@@ -47,14 +54,14 @@ DomDiffTree.prototype = domplate(new DomTree(),
     getValue1: function(member)
     {
         if (member.provider)
-            return member.provider.getValue(member.value, "first");
+            return member.provider.getValue(member.value, "old");
         return member.value;
     },
 
     getValue2: function(member)
     {
         if (member.provider)
-            return member.provider.getValue(member.value, "second");
+            return member.provider.getValue(member.value, "new");
         return member.value;
     },
 
@@ -77,6 +84,26 @@ DomDiffTree.prototype = domplate(new DomTree(),
 
         return valueRep.tag;
     },
+
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+    getDiffValue: function(member)
+    {
+        return member.value;
+    },
+
+    getDiffValueTag: function(member)
+    {
+        var value1 = this.getValue1(member);
+        var value2 = this.getValue2(member);
+
+        if (value1 && value2 && typeof(value1) == "object" && typeof(value2) == "object")
+            return DiffObj.tag;
+
+        return Domplate.SPAN();
+    },
+
+    // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     getRowTag: function(member)
     {

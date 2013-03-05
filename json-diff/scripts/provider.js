@@ -26,9 +26,9 @@ Provider.prototype =
 
     getValue: function(member, colName)
     {
-        if (colName == "first")
+        if (colName == "old")
             return member.value1;
-        else if (colName == "second")
+        else if (colName == "new")
             return member.value2;
     },
 

@@ -84,8 +84,6 @@ JsonDiff.prototype =
         var domTree = new DomDiffTree(provider);
         domTree.replace(content, result);
 
-        var content = document.getElementById("content");
-
         var domTree1 = new DomTree();
         domTree1.replace(document.getElementById("oldObject"), myObject1);
 
