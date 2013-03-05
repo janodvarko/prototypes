@@ -1,0 +1,109 @@
+/* See license.txt for terms of usage */
+
+/* Domplate Widgets */
+@import url("console.css");
+@import url("domTree.css");
+
+.body {
+    margin: 0;
+    font-family: Lucida Grande,Tahoma,sans-serif;
+    font-size: 11px;
+}
+
+#content .domTable {
+    min-width: 500px;
+    border-right: 1px solid #EFEFEF;
+}
+
+#content .memberRow {
+    height: 19px;
+}
+
+#content .memberRow td {
+    border-bottom: 1px solid #EFEFEF;
+}
+
+#content .memberHeaderCell {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    width: 20px;
+}
+
+#content .memberRowHeader {
+    cursor: pointer;
+    height: 100%;
+    display: block;
+}
+
+#content .sourceLine {
+    -moz-user-select: none;
+    margin-right: 10px;
+    border-right: 1px solid #CCCCCC;
+    padding: 0px 4px 0 20px;
+    background: #EEEEEE no-repeat 2px 0px;
+    color: #888888;
+    white-space: pre;
+    font-family: monospace; /* see issue 2953 */
+}
+
+#content .memberRow .memberValueWrapper.oldValue {
+    padding-right: 3px;
+}
+
+#content .memberRow .memberValueWrapper.newValue {
+    padding-right: 20px;
+}
+
+#content .memberRow:hover {
+    background-color: #EFEFEF;
+}
+
+#content .memberRow:hover .memberRowHeader {
+    background-color: #F6F6F6;
+}
+
+/*************************************************************************************************/
+/* Differences */
+
+#content .memberRow.differentRow {
+    display: table-row;
+    background-image: repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02) 5px, transparent 5px, transparent 10px);
+    background-repeat: repeat;
+}
+
+#content .memberRow .memberValueWrapper > DIV {
+    display: inline;
+}
+
+#content .memberRow.equalRow .memberValueWrapper.oldValue {
+    display: none;
+}
+
+#content .memberRow.differentRow .memberValueWrapper.oldValue {
+    text-decoration: line-through;
+}
+
+#content .memberRow.objectRow .memberValueWrapper.oldValue {
+    display: none;
+}
+
+#content .memberRow.differentRow .memberRowHeader {
+    background-image: url(images/warning.svg);
+    background-repeat: no-repeat;
+    background-position: 8px 2px;
+}
+
+/*************************************************************************************************/
+/* console.css */
+
+.objectLeftBrace,
+.arrayLeftBracket {
+    margin-right: 0px;
+}
+
+.objectRightBrace,
+.arrayRightBracket {
+    margin-left: 0px;
+}
+
