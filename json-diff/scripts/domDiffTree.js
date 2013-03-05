@@ -3,10 +3,11 @@
 define([
     "domplate/domplate",
     "domplate/domTree",
+    "domplate/reps",
     "core/trace"
 ],
 
-function(Domplate, DomTree, Trace) { with (Domplate) {
+function(Domplate, DomTree, Reps, Trace) { with (Domplate) {
 
 // ********************************************************************************************* //
 
@@ -60,9 +61,9 @@ DomDiffTree.prototype = domplate(new DomTree(),
     getValueTag1: function(member)
     {
         var value = this.getValue1(member);
-        var valueRep = DomTree.Reps.getRep(value);
-        if (valueRep == DomTree.Rep)
-            return DomTree.Reps.Obj.shortTag;
+        var valueRep = Reps.getRep(value);
+        if (valueRep == Reps.Rep)
+            return Reps.Obj.shortTag;
 
         return valueRep.tag;
     },
@@ -70,9 +71,9 @@ DomDiffTree.prototype = domplate(new DomTree(),
     getValueTag2: function(member)
     {
         var value = this.getValue2(member);
-        var valueRep = DomTree.Reps.getRep(value);
-        if (valueRep == DomTree.Rep)
-            return DomTree.Reps.Obj.shortTag;
+        var valueRep = Reps.getRep(value);
+        if (valueRep == Reps.Rep)
+            return Reps.Obj.shortTag;
 
         return valueRep.tag;
     },
