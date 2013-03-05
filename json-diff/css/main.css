@@ -47,14 +47,6 @@
     font-family: monospace; /* see issue 2953 */
 }
 
-#content .memberRow .memberValueWrapper.oldValue {
-    padding-right: 3px;
-}
-
-#content .memberRow .memberValueWrapper.newValue {
-    padding-right: 20px;
-}
-
 #content .memberRow:hover {
     background-color: #EFEFEF;
 }
@@ -84,8 +76,16 @@
     border-left: 1px solid #EFEFEF;
 }
 
-#content .memberRow.differentRow .memberValueWrapper.oldValue {
+#content .memberRow.differentRow .memberValueWrapper.oldValue .objectBox {
     text-decoration: line-through;
+}
+
+#content .memberRow .diffObj.oldValue .objectBox {
+    text-decoration: line-through;
+}
+
+#content .memberRow .diffObj.newValue .objectBox {
+    text-decoration: none !important;
 }
 
 /*#content .memberRow.objectRow .memberValueWrapper.oldValue {

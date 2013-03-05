@@ -35,7 +35,7 @@ DomDiffTree.prototype = domplate(new DomTree(),
             ),
             TD({"class": "memberValueCell"},
                 SPAN({"class": "memberValueWrapper oldValue"},
-                    TAG("$member|getValueTag1", {object: "$member|getValue1"})
+                    TAG("$member|getDiffValueTag", {object: "$member|getDiffValue"})
                 )
             ),
             TD({"class": "memberSeparator", width: "10px"}),
@@ -43,9 +43,7 @@ DomDiffTree.prototype = domplate(new DomTree(),
                 SPAN({"class": "memberLabel $member.type\\Label"}, "$member|getLabel")
             ),
             TD({"class": "memberValueCell"},
-                DIV({"class": "memberValueWrapper newValue"},
-                    TAG("$member|getValueTag2", {object: "$member|getValue2"})
-                )
+                TAG("$member|getValueTag2", {object: "$member|getValue2"})
             )
         ),
 
@@ -89,7 +87,13 @@ DomDiffTree.prototype = domplate(new DomTree(),
 
     getDiffValue: function(member)
     {
-        return member.value;
+        var value1 = this.getValue1(member);
+        var value2 = this.getValue2(member);
+
+        if (value1 && value2 && typeof(value1) == "object" && typeof(value2) == "object")
+            return member.value.children;
+
+        return this.getValue1(member);
     },
 
     getDiffValueTag: function(member)
@@ -100,7 +104,7 @@ DomDiffTree.prototype = domplate(new DomTree(),
         if (value1 && value2 && typeof(value1) == "object" && typeof(value2) == "object")
             return DiffObj.tag;
 
-        return Domplate.SPAN();
+        return this.getValueTag1(member);
     },
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

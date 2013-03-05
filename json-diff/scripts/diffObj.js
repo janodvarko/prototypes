@@ -21,7 +21,12 @@ var DiffObj = domplate(Reps.Rep,
             FOR("prop", "$object|shortPropIterator",
                 "$prop.name",
                 SPAN({"class": "objectEqual", role: "presentation"}, "$prop.equal"),
-                TAG("$prop.tag", {object: "$prop.object"}),
+                SPAN({"class": "diffObj oldValue"},
+                    TAG("$prop.tag1", {object: "$prop.object1"})
+                ),
+                SPAN({"class": "diffObj newValue"},
+                    TAG("$prop.tag2", {object: "$prop.object2"})
+                ),
                 SPAN({"class": "objectComma", role: "presentation"}, "$prop.delim")
             ),
             SPAN({"class": "objectRightBrace"}, "}")
@@ -50,27 +55,9 @@ var DiffObj = domplate(Reps.Rep,
         return this.propIterator(object, 3);
     },
 
-    propIterator: function(object, max)
+    propIterator: function(children, max)
     {
-        var props = [];
-
-        // Object members with non-empty values are preferred since it gives the
-        // user a better overview of the object.
-        this.getProps(props, object, max, function(t, value)
-        {
-            return (t == "boolean" || t == "number" || (t == "string" && value) ||
-                (t == "object" && value && value.toString));
-        });
-
-        if (props.length+1 <= max)
-        {
-            // There is not enough props yet, let's display also empty members and functions.
-            this.getProps(props, object, max, function(t, value)
-            {
-                return ((t == "string" && !value) || (t == "object" && !value) ||
-                    (t == "function"));
-            });
-        }
+        var props = this.getProps(children, max);
 
         if (props.length > max)
         {
@@ -84,62 +71,44 @@ var DiffObj = domplate(Reps.Rep,
         }
         else if (props.length > 0)
         {
-            props[props.length-1].delim = '';
+            props[props.length-1].delim = "";
         }
 
         return props;
     },
 
-    getProps: function(props, object, max, filter)
+    getProps: function(children, max)
     {
         max = max || 3;
-        if (!object)
-            return [];
 
-        var len = 0;
-
-        try
+        var props = [];
+        for (var i=0; i<children.length; i++)
         {
-            for (var name in object)
+            var child = children[i];
+            if (child.value1 != child.value2)
             {
-                var value;
-                try
-                {
-                    value = object[name];
-                }
-                catch (exc)
-                {
-                    continue;
-                }
+                var rep1 = Reps.getRep(child.value1);
+                var tag1 = rep1.shortTag || rep1.tag;
 
-                var t = typeof(value);
-                if (filter(t, value))
-                {
-                    var rep = Reps.getRep(value);
-                    var tag = rep.shortTag || rep.tag;
-                    if ((t == "object" || t == "function") && value)
-                    {
-                        value = rep.getTitle(value);
-                        if (rep.titleTag)
-                            tag = rep.titleTag;
-                        else
-                            tag = Reps.Obj.titleTag;
-                    }
+                var rep2 = Reps.getRep(child.value2);
+                var tag2 = rep2.shortTag || rep2.tag;
 
-                    if (props.length <= max)
-                        props.push({tag: tag, name: name, object: value, equal: "=", delim: ", "});
-                    else
-                        break;
-                }
+                props.push({
+                    tag1: tag1,
+                    tag2: tag2,
+                    name: child.name,
+                    object1: child.value1,
+                    object2: child.value2,
+                    equal: "=",
+                    delim: ", "
+                });
+
+                if (props.length >= max)
+                    break;
             }
         }
-        catch (exc)
-        {
-            // Sometimes we get exceptions when trying to read from certain objects, like
-            // StorageList, but don't let that gum up the works
-            // XXXjjb also History.previous fails because object is a web-page object
-            // which does not have permission to read the history
-        }
+
+        return props;
     },
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
