@@ -39,9 +39,9 @@ DomDiffTree.prototype = domplate(new DomTree(),
                 )
             ),
             TD({"class": "memberSeparator", width: "10px"}),
-            TD({"class": "memberLabelCell", style: "padding-left: $member|getIndent\\px"},
+/*            TD({"class": "memberLabelCell", style: "padding-left: $member|getIndent\\px"},
                 SPAN({"class": "memberLabel $member.type\\Label"}, "$member|getLabel")
-            ),
+            ),*/
             TD({"class": "memberValueCell"},
                 TAG("$member|getValueTag2", {object: "$member|getValue2"})
             )

@@ -5,8 +5,9 @@ define([
     "provider",
     "domplate/domTree",
     "domDiffTree",
+    "core/trace"
 ],
-function(Differ, Provider, DomTree, DomDiffTree) {
+function(Differ, Provider, DomTree, DomDiffTree, Trace) {
 
 // ********************************************************************************************* //
 // The Application
@@ -72,27 +73,69 @@ JsonDiff.prototype =
             father: father,
         }
 
-        // Test
-        var differ = new Differ();
-        var result = [];
-        differ.diff(myObject1, myObject2, result);
+        this.loadJson(function(myObject1, myObject2)
+        {
+            // Test
+            var differ = new Differ();
+            var result = [];
+            differ.diff(myObject1, myObject2, result);
 
-        console.log("Differences:", result);
+            console.log("Differences:", result);
 
-        // Render log structure as an expandable tree.
-        var provider = new Provider(result);
-        var domTree = new DomDiffTree(provider);
-        domTree.replace(content, result);
+            if (!result.length)
+                return;
 
-        var domTree1 = new DomTree();
-        domTree1.replace(document.getElementById("oldObject"), myObject1);
+            // Render log structure as an expandable tree.
+            var provider = new Provider(result);
+            var domTree = new DomDiffTree(provider);
+            domTree.replace(content, result);
 
-        var domTree2 = new DomTree();
-        domTree2.replace(document.getElementById("newObject"), myObject2);
+            var domTree1 = new DomTree();
+            domTree1.replace(document.getElementById("oldObject"), myObject1);
 
-        var domTree3 = new DomTree();
-        domTree3.replace(document.getElementById("differences"), result);
+            var domTree2 = new DomTree();
+            domTree2.replace(document.getElementById("newObject"), myObject2);
+
+            var domTree3 = new DomTree();
+            domTree3.replace(document.getElementById("differences"), result);
+        });
     },
+
+    loadJson: function(callback)
+    {
+        var file1 = "data/janodvarko.cz.1.har";
+        var file2 = "data/janodvarko.cz.2.har";
+
+        $.ajax({
+            url: file1,
+            context: this,
+
+            success: function(response1)
+            {
+                $.ajax({
+                    url: file2,
+                    context: this,
+
+                    success: function(response2)
+                    {
+                        var obj1 = jQuery.parseJSON(response1);
+                        var obj2 = jQuery.parseJSON(response2);
+                        callback(obj1, obj2);
+                    },
+
+                    error: function(response, ioArgs)
+                    {
+                        Trace.exception("Failed to load JSON", response, ioArgs);
+                    }
+                });
+            },
+
+            error: function(response, ioArgs)
+            {
+                Trace.exception("Failed to load JSON", response, ioArgs);
+            }
+        });
+    }
 }
 
 // ********************************************************************************************* //

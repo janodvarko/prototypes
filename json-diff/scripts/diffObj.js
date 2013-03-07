@@ -24,9 +24,10 @@ var DiffObj = domplate(Reps.Rep,
                 SPAN({"class": "diffObj oldValue"},
                     TAG("$prop.tag1", {object: "$prop.object1"})
                 ),
+/*                SPAN(" "),
                 SPAN({"class": "diffObj newValue"},
                     TAG("$prop.tag2", {object: "$prop.object2"})
-                ),
+                ),*/
                 SPAN({"class": "objectComma", role: "presentation"}, "$prop.delim")
             ),
             SPAN({"class": "objectRightBrace"}, "}")
