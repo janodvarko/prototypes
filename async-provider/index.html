@@ -3,11 +3,17 @@
 <head>
     <title>Async Data Providers</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-</head>
-<body class="body">
-    <div id="content"></div>
     <script src="scripts/jquery/jquery.js"></script>
     <script data-main="scripts/main" src="scripts/requirejs/require.js"></script>
     <link rel="stylesheet" href="css/main.css" type="text/css"/>
+</head>
+<body class="body">
+    <div>The tree state is preserved across tree-refresh. Expand some items and click the button.</div>
+    <br/>
+    <button id="refresh">Refresh</button>
+    <br/><br/>
+    <div id="content">
+        <div class="spinning"></div>
+    </div>
 </body>
 </html>

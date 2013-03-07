@@ -8,6 +8,12 @@ define([
 function(Lib, Trace, Promise) {
 
 // ********************************************************************************************* //
+// Constants
+
+var async = true;
+var timeout = 500;
+
+// ********************************************************************************************* //
 // Object Cache
 
 function ObjectCache(storage)
@@ -34,7 +40,7 @@ ObjectCache.prototype =
         // The object is not in the cache so, return it asynchronosly.
         // This is the place where real application would ask the server.
         var self = this;
-        setTimeout(function onGetObject()
+        this.setTimeout(function onGetObject()
         {
             Trace.log("cache; onGetObject")
 
@@ -45,7 +51,7 @@ ObjectCache.prototype =
                 deferred.resolve(object);
             else
                 deferred.reject(object);
-        }, 1000);
+        });
 
         return deferred.promise;
     },
@@ -60,7 +66,7 @@ ObjectCache.prototype =
         // The object is not in the cache so, return it asynchronosly.
         // This is the place where real application would ask the server.
         var self = this;
-        window.setTimeout(function onGetObjectProps()
+        this.setTimeout(function onGetObjectProps()
         {
             props = self.storage.getObjectProps(id);
             self.props[id] = props;
@@ -69,10 +75,18 @@ ObjectCache.prototype =
                 deferred.resolve(props);
             else
                 deferred.reject({error: "no properties"});
-        }, 1000);
+        });
 
         return deferred.promise;
     },
+
+    setTimeout: function(callback)
+    {
+        if (async)
+            setTimeout(callback, timeout);
+        else
+            callback();
+    }
 }
 
 // ********************************************************************************************* //

@@ -241,8 +241,8 @@ DomplateTag.prototype =
             }
             catch (exc)
             {
-                if (exc != StopIteration)
-                    throw exc;
+                //if (exc != StopIteration)
+                //    throw exc;
             }
         }
 

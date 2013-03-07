@@ -9,3 +9,10 @@
     font-family: Lucida Grande,Tahoma,sans-serif;
     font-size: 11px;
 }
+
+#content > .spinning {
+    background-image: url(images/spinner.png) !important;
+    background-repeat: no-repeat;
+    width: 9px;
+    height: 9px;
+}

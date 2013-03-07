@@ -10,19 +10,13 @@ with (Domplate) {
 
 // ********************************************************************************************* //
 
-function ObjectProvider(storage)
+function ObjectAsyncProvider(storage)
 {
     this.storage = storage;
 }
 
-ObjectProvider.prototype =
+ObjectAsyncProvider.prototype =
 {
-    setUpdateListener: function(listener)
-    {
-        // This listener will receive update events.
-        this.updateListener = listener;
-    },
-
     hasChildren: function(object)
     {
         return typeof(object.value) == "object";
@@ -30,43 +24,8 @@ ObjectProvider.prototype =
 
     getChildren: function(object)
     {
-        // A helper flag used to see if the data-fetch has been done
-        // synchronously or asynchronously.
-        var sync = true;
-
-        var children = [];
         var id = object.id ? object.id : "";
-
-        // The cache is useing promise pattern
-        var self = this;
-        this.storage.getObjectProps(id).then(function onGetChildren(props)
-        {
-            if (sync)
-            {
-                // The response comes from the cache, which is synchronous.
-                for (var i=0; i<props.length; i++)
-                {
-                    var prop = props[i];
-                    children.push({
-                        id: prop.id,
-                        name: prop.name,
-                        value: prop.value,
-                    });
-                }
-            }
-            else
-            {
-                // Update the listner (UI widget). It'll ask for children automatically,
-                // and they will be returned synchronously since they are cached at this point.
-                self.updateListener.updateObject(object);
-            }
-        });
-
-        sync = false;
-
-        // Returns an empty array in case data are not in the cache and needs to be
-        // fetched from the server.
-        return children;
+        return this.storage.getObjectProps(id);
     },
 
     getLabel: function(object)
@@ -78,12 +37,17 @@ ObjectProvider.prototype =
     {
         return object.value;
     },
+
+    getId: function(object)
+    {
+        return this.getLabel(object);
+    }
 }
 
 // ********************************************************************************************* //
 // Registration
 
-return ObjectProvider;
+return ObjectAsyncProvider;
 
 // ********************************************************************************************* //
 }});
