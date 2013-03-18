@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script src="chrome://devtools-panel/content/browserOverlay.js" type="application/x-javascript"/> 
+    <script src="chrome://devtools-panel/content/myPanel.js" type="application/x-javascript"/> 
+</overlay>

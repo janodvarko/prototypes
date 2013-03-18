@@ -1,0 +1,21 @@
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>devtools-panel@janodvarko.cz</em:id>
+    <em:version>0.5</em:version>
+
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>20.0</em:minVersion>
+        <em:maxVersion>30.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <em:name>Firebug DevTools Panel</em:name>
+    <em:description>See how to create a new panel in DevTools Toolbox</em:description>
+    <em:creator>Jan Odvarko</em:creator>
+    <em:homepageURL>http://janodvarko.cz</em:homepageURL>
+  </Description>
+</RDF>
