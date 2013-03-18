@@ -54,9 +54,7 @@ MyPanel.prototype =
         this.win = win;
         this.doc = win.document;
 
-        var deferred = Promise.defer();
-        deferred.resolve(this);
-        return deferred.promise;
+        return Promise.resolve(this);
     },
 
     destroy: function()
