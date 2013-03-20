@@ -27,7 +27,7 @@ var panelDefinition =
 
     build: function(frame, toolbox)
     {
-        var panel = new MyPanel(frame, toolbox.target);
+        var panel = new MyPanel(frame, toolbox);
         return panel.open(window);
     }
 };

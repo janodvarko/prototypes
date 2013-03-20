@@ -32,17 +32,17 @@ catch (e)
 // ********************************************************************************************* //
 // Panel Implementation
 
-function MyPanel(frame, target)
+function MyPanel(frame, toolbox)
 {
     EventEmitter.decorate(this);
 
     this.frame = frame;
-    this.target = target;
+    this.toolbox = toolbox;
+    this.target = toolbox.target;
 
     this.target.on("navigate", this.navigate);
     this.target.on("will-navigate", this.willNavigate);
-    this.target.on("hidden", this.hidden);
-    this.target.on("visible",  this.visible);
+    this.toolbox.on("select", this.select);
 }
 
 MyPanel.prototype =
@@ -63,8 +63,7 @@ MyPanel.prototype =
 
         this.target.off("navigate", this.navigate);
         this.target.off("will-navigate", this.willNavigate);
-        this.target.off("hidden", this.hidden);
-        this.target.off("visible",  this.visible);
+        this.target.off("select", this.select);
     },
 
     willNavigate: function()
@@ -77,14 +76,9 @@ MyPanel.prototype =
         FBTrace.sysout("MyPanel.navigate");
     },
 
-    hidden: function()
+    select: function()
     {
-        FBTrace.sysout("MyPanel.hidden");
-    },
-
-    visible: function()
-    {
-        FBTrace.sysout("MyPanel.visible");
+        FBTrace.sysout("MyPanel.select", arguments);
     },
 };
 
