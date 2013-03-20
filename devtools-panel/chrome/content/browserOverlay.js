@@ -25,9 +25,9 @@ var panelDefinition =
         return target.isLocalTab;
     },
 
-    build: function(frame, target)
+    build: function(frame, toolbox)
     {
-        var panel = new MyPanel(frame, target);
+        var panel = new MyPanel(frame, toolbox.target);
         return panel.open(window);
     }
 };
