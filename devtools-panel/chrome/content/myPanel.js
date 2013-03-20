@@ -43,6 +43,8 @@ function MyPanel(frame, toolbox)
     this.target.on("navigate", this.navigate);
     this.target.on("will-navigate", this.willNavigate);
     this.toolbox.on("select", this.select);
+    this.target.on("visible", this.visible);
+    this.target.on("hidden", this.hidden);
 }
 
 MyPanel.prototype =
@@ -63,7 +65,9 @@ MyPanel.prototype =
 
         this.target.off("navigate", this.navigate);
         this.target.off("will-navigate", this.willNavigate);
-        this.target.off("select", this.select);
+        this.toolbox.off("select", this.select);
+        this.target.off("visible", this.visible);
+        this.target.off("hidden", this.hidden);
     },
 
     willNavigate: function()
@@ -79,6 +83,16 @@ MyPanel.prototype =
     select: function()
     {
         FBTrace.sysout("MyPanel.select", arguments);
+    },
+
+    visible: function()
+    {
+        FBTrace.sysout("MyPanel.visible", arguments);
+    },
+
+    hidden: function()
+    {
+        FBTrace.sysout("MyPanel.hidden", arguments);
     },
 };
 
