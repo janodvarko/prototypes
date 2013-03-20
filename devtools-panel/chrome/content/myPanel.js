@@ -40,7 +40,7 @@ function MyPanel(frame, target)
     this.target = target;
 
     this.target.on("navigate", this.navigate);
-    this.target.on("will-navigate", this.beforeNavigate);
+    this.target.on("will-navigate", this.willNavigate);
     this.target.on("hidden", this.hidden);
     this.target.on("visible",  this.visible);
 }
@@ -59,15 +59,17 @@ MyPanel.prototype =
 
     destroy: function()
     {
+        FBTrace.sysout("MyPanel.destroy");
+
         this.target.off("navigate", this.navigate);
-        this.target.off("will-navigate", this.beforeNavigate);
+        this.target.off("will-navigate", this.willNavigate);
         this.target.off("hidden", this.hidden);
         this.target.off("visible",  this.visible);
     },
 
-    beforeNavigate: function()
+    willNavigate: function()
     {
-        FBTrace.sysout("MyPanel.beforeNavigate");
+        FBTrace.sysout("MyPanel.willNavigate");
     },
 
     navigate: function()
