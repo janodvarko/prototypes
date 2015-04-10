@@ -1,0 +1,15 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* Text Panel */
+
+.TextPanelBox {
+  height: 100%;
+}
+
+.TextPanelBox .data {
+  font-size: 11px;
+  font-family: monospace;
+  overflow: auto;
+  height: calc(100% - 30px);
+}

@@ -1,0 +1,16 @@
+{
+  "name": "jsonviewer",
+  "title": "JSON Viewer",
+  "id": "jsonviewer@janodvarko.cz",
+  "version": "0.0.1",
+  "description": "JSON Viewer",
+  "main": "index.js",
+  "author": "Jan Odvarko",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "New BSD License",
+  "dependencies": {
+    "firebug.sdk": "~0.5.5"
+  }
+}

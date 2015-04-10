@@ -1,0 +1,28 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* General */
+
+body {
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+a:focus {
+  outline: none;
+}
+
+#content {
+  height: 100%;
+}
+
+#content > DIV {
+  height: 100%;
+}
+
+pre {
+  background-color: white;
+  border: none;
+}

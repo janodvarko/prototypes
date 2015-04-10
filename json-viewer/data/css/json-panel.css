@@ -1,0 +1,13 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* JSON Panel */
+
+.JsonPanelBox {
+  height: 100%;
+}
+
+.JsonPanelBox .jsonTree {
+  overflow: auto;
+  height: calc(100% - 30px);
+}

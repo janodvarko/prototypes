@@ -1,0 +1,6 @@
+content jsonviewer                chrome/content/
+skin    jsonviewer classic/1.0    chrome/skin/classic/shared/
+locale  jsonviewer en-US          chrome/locale/en-US/
+
+skin    jsonviewer-firebug.sdk    classic/1.0    node_modules/firebug.sdk/skin/classic/shared/
+locale  jsonviewer-firebug.sdk    en-US          node_modules/firebug.sdk/locale/en-US/
