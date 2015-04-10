@@ -55,58 +55,37 @@
 }
 
 /******************************************************************************/
-/* SideBar */
-
-.sideBarTabbedArea {
-  height: 30px;
-  border-bottom: 1px solid rgb(170, 188, 207);
-  background-color: rgb(219, 234, 249) !important;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
-}
-
-.sideBarTabbedArea li a {
-  padding: 4px 9px;
-  font-weight: normal;
-  font-size: 12px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  color: #141414;
-}
-
-.sideBarTabbedArea li.active a,
-.sideBarTabbedArea li.active a:focus {
-  background-color: white;
-  border: 1px solid rgb(170, 188, 207);
-  border-bottom-color: transparent;
-  color: #141414;
-}
-
-.sideBarTabbedArea li:hover a {
-  border-color: #C8C8C8;
-  background-color: transparent;
-}
-
-.sideBarTabbedArea li.active:hover a {
-  border: 1px solid rgb(170, 188, 207) !important;
-  border-bottom-color: transparent !important;
-  color: #141414 !important;
-}
-
-.sideBarTabbedArea.nav-tabs {
-  padding-top: 3px;
-  padding-left: 3px;
-}
-
-/******************************************************************************/
 /* Panels */
 
 .mainPanel {
   height: 100%;
 }
 
-.sidePanel {
-  height: 100%;
+/******************************************************************************/
+/* Light Theme */
+
+.light .mainTabbedArea {
+  background-color: red;
 }
 
-.sidePanel > DIV {
-  height: 100%;
+.light .mainTabbedArea li.active a,
+.light .mainTabbedArea li.active a:focus {
+  background-color: rgb(252, 252, 252);
+  border-color: rgb(170, 170, 170);
+  border-bottom-color: transparent;
+}
+
+.light .mainTabbedArea li:hover a {
+  border: 1px solid rgb(170, 170, 170);
+}
+
+.light .mainTabbedArea li.active:hover a {
+  border: 1px solid rgb(170, 170, 170) !important;
+  background-color: rgb(252, 252, 252) !important;
+  border-bottom-color: transparent !important;
+}
+
+.light .mainTabbedArea.nav-tabs {
+  border-bottom-color: rgb(170, 170, 170);
+  background-color: rgb(240, 241, 242) !important;
 }

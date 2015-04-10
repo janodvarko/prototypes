@@ -1,10 +1,13 @@
 /* See license.txt for terms of usage */
 
-const { Cc, Ci } = require("chrome");
+// Add-on SDK
+const self = require("sdk/self");
+const { Cc, Ci, Cu } = require("chrome");
 const { Class } = require("sdk/core/heritage");
 const { Unknown } = require("sdk/platform/xpcom");
 
-const self = require("sdk/self");
+// Platform
+const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
 
 /**
  * xxxHonza TODO docs
@@ -163,7 +166,7 @@ var Convertor = Class(
       '<link rel="stylesheet" type="text/css" href="css/main.css">' +
       '<link rel="stylesheet" type="text/css" href="' + domStyle + '">' +
       '<script data-main="config" src="lib/requirejs/require.js"></script>' +
-      '</head><body>' +
+      '</head><body class="' + getCurrentTheme() + '">' +
       '<div id="content"></div>' +
       '<div id="data">' + json + '</div>' +
       '</body></html>';
@@ -191,6 +194,12 @@ var Convertor = Class(
       '</body></html>';
   },
 });
+
+// Helpers
+
+function getCurrentTheme() {
+  return Services.prefs.getCharPref("devtools.theme");
+}
 
 // Exports from this module
 exports.Convertor = Convertor;
