@@ -11,7 +11,7 @@
   width: 200px;
   position: fixed; /* xxxHonza: how to avoid fixed position? */
   right: 5px;
-  background-image: url("chrome://rdpinspector/skin/search.svg");
+  background-image: url("search.svg");
   background-repeat: no-repeat;
   background-position: 2px center;
   padding-left: 20px;
