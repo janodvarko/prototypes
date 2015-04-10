@@ -165,7 +165,7 @@ var Convertor = Class(
       '<script data-main="config" src="lib/requirejs/require.js"></script>' +
       '</head><body>' +
       '<div id="content"></div>' +
-      '<div id="data" style="display: none;">' + json + '</div>' +
+      '<div id="data">' + json + '</div>' +
       '</body></html>';
   },
 
@@ -192,4 +192,5 @@ var Convertor = Class(
   },
 });
 
+// Exports from this module
 exports.Convertor = Convertor;

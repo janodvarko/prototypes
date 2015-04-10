@@ -55,5 +55,6 @@ function onUnload(reason) {
   //prefs.unregister();
 };
 
+// Exports from this module
 exports.main = onLoad;
 exports.onUnload = onUnload;
