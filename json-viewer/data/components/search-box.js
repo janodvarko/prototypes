@@ -19,6 +19,7 @@ var SearchBox =
     searchBox.setAttribute("class", "searchBox");
     searchBox.setAttribute("type", "search");
     searchBox.setAttribute("results", "true");
+    searchBox.setAttribute("placeholder", "Filter JSON");
     item.appendChild(searchBox);
 
     searchBox.addEventListener("command", this.onChange.bind(this, searchBox), false);
