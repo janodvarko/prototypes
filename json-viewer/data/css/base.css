@@ -27,6 +27,7 @@ pre {
   border: none;
 }
 
-#data {
+#json,
+#headers {
   display: none;
 }

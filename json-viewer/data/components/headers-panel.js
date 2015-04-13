@@ -7,6 +7,7 @@ const React = require("react");
 
 // Firebug SDK
 const { Reps } = require("reps/repository");
+const { TreeView } = require("reps/tree-view");
 
 // RDP Inspector
 const { HeadersToolbar } = require("./headers-toolbar");
@@ -28,10 +29,16 @@ var HeadersPanel = React.createClass({
   },
 
   render: function() {
+    var data = JSON.parse(this.props.data);
+    console.log("data", data)
+    var content = TreeView({
+      data: data
+    });
+
     return (
       DIV({className: "HeadersPanelBox"},
         HeadersToolbar(),
-        DIV({}, "TODO")
+        content
       )
     );
   }

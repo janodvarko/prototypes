@@ -8,6 +8,12 @@ const { Unknown } = require("sdk/platform/xpcom");
 
 // Platform
 const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
+const { devtools } = Cu.import("resource://gre/modules/devtools/Loader.jsm", {});
+const NetworkHelper = devtools.require("devtools/toolkit/webconsole/network-helper");
+
+// Firebug SDK
+const { Locale } = require("firebug.sdk/lib/core/locale.js");
+const { Content } = require("firebug.sdk/lib/core/content.js");
 
 /**
  * xxxHonza TODO docs
@@ -70,7 +76,7 @@ var Convertor = Class(
   },
 
   onStartRequest: function(aRequest, aContext) {
-    this.data = '';
+    this.data = "";
     this.uri = aRequest.QueryInterface(Ci.nsIChannel).URI.spec;
 
     // Sets the charset if it is available. (For documents loaded from the
@@ -93,9 +99,21 @@ var Convertor = Class(
    * 4. Spit it back out at the listener
    */
   onStopRequest: function(aRequest, aContext, aStatusCode) {
-    var outputDoc = '';
-    var cleanData = '';
-    var callback = '';
+    let outputDoc = "";
+    let cleanData = "";
+    let callback = "";
+
+    let headers = {
+      request: [],
+      response: []
+    }
+
+    if (!(aRequest instanceof Ci.nsIHttpChannel)) {
+      return;
+    }
+
+    let win = NetworkHelper.getWindowForRequest(aRequest);
+    Content.exportIntoContentScope(win, Locale, "Locale");
 
     // This regex attempts to match a JSONP structure:
     //    * Any amount of whitespace (including unicode nonbreaking spaces) between the start of the file and the callback name
@@ -117,8 +135,21 @@ var Convertor = Class(
       cleanData = this.data;
     }
 
+    aRequest.visitRequestHeaders({
+      visitHeader: function(name, value) {
+        headers.request.push({name: name, value: value});
+      }
+    });
+
+    aRequest.visitResponseHeaders({
+      visitHeader: function(name, value) {
+        headers.response.push({name: name, value: value});
+      }
+    });
+
     try {
-      outputDoc = this.toHTML(cleanData, this.uri);
+      headers = JSON.stringify(headers);
+      outputDoc = this.toHTML(cleanData, headers, this.uri);
     } catch (e) {
       outputDoc = this.toErrorPage(e, this.data, this.uri);
     }
@@ -156,7 +187,7 @@ var Convertor = Class(
       replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;") : '';
   },
 
-  toHTML: function(json, title) {
+  toHTML: function(json, headers, title) {
     var domStyle = self.data.url(
       "../node_modules/firebug.sdk/skin/classic/shared/domTree.css");
     var themeClassName = "theme-" + getCurrentTheme();
@@ -170,7 +201,8 @@ var Convertor = Class(
       '<script data-main="config" src="lib/requirejs/require.js"></script>' +
       '</head><body class="' + themeClassName + '">' +
       '<div id="content"></div>' +
-      '<div id="data">' + json + '</div>' +
+      '<div id="json">' + json + '</div>' +
+      '<div id="headers">' + headers + '</div>' +
       '</body></html>';
   },
 

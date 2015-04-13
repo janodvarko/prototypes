@@ -29,7 +29,10 @@ var MainTabbedArea = React.createClass({
   displayName: "MainTabbedArea",
 
   getInitialState: function() {
-    return { data: [] };
+    return {
+      json: {},
+      headers: {}
+   };
   },
 
   componentDidMount: function() {
@@ -48,16 +51,17 @@ var MainTabbedArea = React.createClass({
         animation: false, ref: "tabbedArea"},
         TabPane({eventKey: 1, tab: "JSON"},
           JsonPanel({
-            data: this.props.data
+            data: this.props.json
           })
         ),
         TabPane({eventKey: 2, tab: "Raw Data"},
           TextPanel({
-            data: this.props.data
+            data: this.props.json
           })
         ),
         TabPane({eventKey: 3, tab: "Headers"},
           HeadersPanel({
+            data: this.props.headers
           })
         )
       )

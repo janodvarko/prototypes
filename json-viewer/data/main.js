@@ -9,17 +9,23 @@ var React = require("react");
 var { MainTabbedArea } = require("components/main-tabbed-area");
 var { Resizer } = require("resizer");
 
+// Register localization bundles.
+Locale.registerStringBundle("chrome://jsonviewer-firebug.sdk/locale/reps.properties");
+
 /**
  * Render the main application component. It's the main tab bar displayed
  * at the top of the window. This component also represents ReacJS root.
  */
 var content = document.getElementById("content");
-var data = document.getElementById("data");
+var json = document.getElementById("json");
+var headers = document.getElementById("headers");
 var input = {
-  data: data.textContent
+  json: json.textContent,
+  headers: headers.textContent
 }
 
-data.remove();
+json.remove();
+headers.remove();
 
 var theApp = React.render(MainTabbedArea(input), content);
 var resizer = new Resizer(window, theApp);
