@@ -26,6 +26,9 @@ var TextToolbar = React.createClass({
       ButtonToolbar({className: "toolbar"},
         Button({bsSize: "xsmall", onClick: this.onPrettify},
           "Pretty Print"
+        ),
+        Button({bsSize: "xsmall", onClick: this.onCopy},
+          "Copy"
         )
       )
     )
@@ -36,6 +39,10 @@ var TextToolbar = React.createClass({
   onPrettify: function(event) {
     // xxxHonza: TODO
     alert("TODO");
+  },
+
+  onCopy: function(event) {
+    // xxxHonza: TODO
   },
 });
 

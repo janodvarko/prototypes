@@ -26,6 +26,9 @@ var HeadersToolbar = React.createClass({
       ButtonToolbar({className: "toolbar"},
         Button({bsSize: "xsmall", onClick: this.onRefresh},
           "Refresh"
+        ),
+        Button({bsSize: "xsmall", onClick: this.onCopy},
+          "Copy"
         )
       )
     )
@@ -34,6 +37,10 @@ var HeadersToolbar = React.createClass({
   // Commands
 
   onRefresh: function(event) {
+    // xxxHonza: TODO
+  },
+
+  onCopy: function(event) {
     // xxxHonza: TODO
   },
 });

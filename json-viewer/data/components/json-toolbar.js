@@ -26,6 +26,9 @@ var JsonToolbar = React.createClass({
       ButtonToolbar({className: "toolbar"},
         Button({bsSize: "xsmall", onClick: this.onSave},
           "Save"
+        ),
+        Button({bsSize: "xsmall", onClick: this.onCopy},
+          "Copy"
         )
       )
     )
@@ -36,6 +39,10 @@ var JsonToolbar = React.createClass({
   onSave: function(event) {
     // xxxHonza: TODO
     alert("TODO");
+  },
+
+  onCopy: function(event) {
+    // xxxHonza: TODO
   },
 });
 
