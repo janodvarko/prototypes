@@ -159,14 +159,16 @@ var Convertor = Class(
   toHTML: function(json, title) {
     var domStyle = self.data.url(
       "../node_modules/firebug.sdk/skin/classic/shared/domTree.css");
+    var themeClassName = "theme-" + getCurrentTheme();
 
     return '<!DOCTYPE html>\n' +
       '<html><head><title>' + this.htmlEncode(title) + '</title>' +
       '<base href="' + self.data.url() + '">' +
       '<link rel="stylesheet" type="text/css" href="css/main.css">' +
+      '<link rel="stylesheet" type="text/css" href="chrome://browser/skin/devtools/light-theme.css">' +
       '<link rel="stylesheet" type="text/css" href="' + domStyle + '">' +
       '<script data-main="config" src="lib/requirejs/require.js"></script>' +
-      '</head><body class="' + getCurrentTheme() + '">' +
+      '</head><body class="' + themeClassName + '">' +
       '<div id="content"></div>' +
       '<div id="data">' + json + '</div>' +
       '</body></html>';

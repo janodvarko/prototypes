@@ -20,6 +20,10 @@
 /******************************************************************************/
 /* Light Theme */
 
-.light .searchBox {
+.theme-light .searchBox {
   border: 1px solid rgb(170, 170, 170);
+  background-image: url("chrome://browser/skin/devtools/magnifying-glass-light.png");
+  background-position: 8px center;
+  border-radius: 2px;
+  padding-left: 25px;
 }

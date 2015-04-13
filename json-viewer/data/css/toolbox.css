@@ -1,44 +1,7 @@
 /* See license.txt for terms of usage */
 
 /******************************************************************************/
-/* Main Tabs */
-
-.mainTabbedArea {
-  background-color: rgb(219, 234, 249);
-  background-image: linear-gradient(rgba(253, 253, 253, 0.2), rgba(253, 253, 253, 0));
-}
-
-.mainTabbedArea li a {
-  padding: 3px 8px;
-  font-weight: bold;
-  color: #565656;
-}
-
-.mainTabbedArea li.active a,
-.mainTabbedArea li.active a:focus {
-  background-color: rgb(247, 251, 254);
-  border: 1px solid rgb(170, 188, 207);
-  border-bottom-color: transparent;
-}
-
-.mainTabbedArea li:hover a {
-  border: 1px solid #C8C8C8;
-  border-bottom: 1px solid transparent;
-  background-color: transparent !important;
-}
-
-.mainTabbedArea li.active:hover a {
-  border: 1px solid rgb(170, 188, 207) !important;
-  background-color: rgb(247, 251, 254) !important;
-  border-bottom-color: transparent !important;
-}
-
-.mainTabbedArea.nav-tabs {
-  padding-top: 3px;
-  padding-left: 3px;
-  height: 31px;
-  border-bottom-color: rgb(170, 188, 207);
-}
+/* Tabs */
 
 .tab-content {
   /* xxxHonza: minus the height of the tab bar */
@@ -54,38 +17,105 @@
   background-color: white;
 }
 
-/******************************************************************************/
-/* Panels */
-
 .mainPanel {
   height: 100%;
 }
 
 /******************************************************************************/
-/* Light Theme */
+/* Firebug Theme */
 
-.light .mainTabbedArea {
-  background-color: red;
+.theme-firebug .mainTabbedArea {
+  background-color: rgb(219, 234, 249);
+  background-image: linear-gradient(rgba(253, 253, 253, 0.2), rgba(253, 253, 253, 0));
 }
 
-.light .mainTabbedArea li.active a,
-.light .mainTabbedArea li.active a:focus {
-  background-color: rgb(252, 252, 252);
-  border-color: rgb(170, 170, 170);
+.theme-firebug .mainTabbedArea li a {
+  padding: 3px 8px;
+  font-weight: bold;
+  color: #565656;
+}
+
+.theme-firebug .mainTabbedArea li.active a,
+.theme-firebug .mainTabbedArea li.active a:focus {
+  background-color: rgb(247, 251, 254);
+  border: 1px solid rgb(170, 188, 207);
   border-bottom-color: transparent;
 }
 
-.light .mainTabbedArea li:hover a {
-  border: 1px solid rgb(170, 170, 170);
+.theme-firebug .mainTabbedArea li:hover a {
+  border: 1px solid #C8C8C8;
+  border-bottom: 1px solid transparent;
+  background-color: transparent !important;
 }
 
-.light .mainTabbedArea li.active:hover a {
-  border: 1px solid rgb(170, 170, 170) !important;
-  background-color: rgb(252, 252, 252) !important;
+.theme-firebug .mainTabbedArea li.active:hover a {
+  border: 1px solid rgb(170, 188, 207) !important;
+  background-color: rgb(247, 251, 254) !important;
   border-bottom-color: transparent !important;
 }
 
-.light .mainTabbedArea.nav-tabs {
-  border-bottom-color: rgb(170, 170, 170);
-  background-color: rgb(240, 241, 242) !important;
+.theme-firebug .mainTabbedArea.nav-tabs {
+  padding-top: 3px;
+  padding-left: 3px;
+  height: 31px;
+  border-bottom-color: rgb(170, 188, 207);
 }
+
+/******************************************************************************/
+/* Light Theme */
+
+.theme-light .mainTabbedArea {
+  background: var(--theme-tab-toolbar-background);
+  font-size: 12px;
+}
+
+.theme-light .mainTabbedArea li {
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border-style: solid;
+  border-width: 0;
+  -moz-border-start-width: 1px;
+  border-color: var(--theme-splitter-color);
+}
+
+.theme-light .mainTabbedArea .nav-tabs {
+  border-bottom: 1px solid var(--theme-splitter-color);
+  box-shadow: 0 -2px 0 rgba(170, 170, 170,.1) inset;
+}
+
+.theme-light .mainTabbedArea li a {
+  color: var(--theme-content-color1);
+}
+
+.theme-light .mainTabbedArea li a:hover,
+.theme-light .mainTabbedArea li a {
+  border: none !important;
+  background-color: transparent !important;
+  padding: 3px 15px;
+}
+
+.theme-light .mainTabbedArea li:hover {
+  background-color: rgba(170,170,170,.2);
+}
+
+.theme-light .mainTabbedArea li.active,
+.theme-light .mainTabbedArea li.active:hover {
+  background-color: var(--theme-selection-background);
+}
+
+.theme-light .mainTabbedArea li.active a,
+.theme-light .mainTabbedArea li.active:hover a {
+  color: var(--theme-selection-color);
+}
+
+.theme-light .mainTabbedArea li:active:hover {
+  background-color: rgba(170,170,170,.4);
+}
+
+.theme-light .mainTabbedArea li.active {
+  box-shadow: 0 2px 0 #d7f1ff inset,
+              0 8px 3px -5px #2b82bf inset,
+              0 -2px 0 rgba(0,0,0,.06) inset;
+}
+

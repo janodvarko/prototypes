@@ -10,8 +10,8 @@ body {
   overflow: hidden;
 }
 
-a:focus {
-  outline: none;
+*:focus {
+  outline: none !important;
 }
 
 #content {
