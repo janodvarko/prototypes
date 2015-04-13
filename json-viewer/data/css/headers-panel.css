@@ -1,0 +1,30 @@
+/* See license.txt for terms of usage */
+
+/******************************************************************************/
+/* Headers Panel */
+
+.headersPanelBox {
+  height: 100%;
+  font-family: Lucida Grande, Tahoma, sans-serif;
+  font-size: 11px;
+}
+
+.netInfoHeadersTable {
+  overflow: auto;
+  height: calc(100% - 20px);
+  line-height: 12px;
+}
+
+.netHeadersGroup {
+  padding: 10px;
+}
+
+/******************************************************************************/
+/* Firebug Theme */
+
+
+/******************************************************************************/
+/* Light Theme */
+
+/******************************************************************************/
+/* Dark Theme */

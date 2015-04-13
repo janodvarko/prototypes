@@ -3,13 +3,13 @@
 /******************************************************************************/
 /* Text Panel */
 
-.TextPanelBox {
+.textPanelBox {
   height: 100%;
 }
 
-.TextPanelBox .data {
+.textPanelBox .data {
   font-size: 11px;
   font-family: monospace;
   overflow: auto;
-  height: calc(100% - 30px);
+  height: calc(100% - 20px);
 }

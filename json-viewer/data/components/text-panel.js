@@ -32,7 +32,7 @@ var TextPanel = React.createClass({
     //var jsonPretty = JSON.stringify(json, null, 2);
 
     return (
-      DIV({className: "TextPanelBox"},
+      DIV({className: "textPanelBox"},
         TextToolbar(),
         PRE({className: "data"}, this.props.data)
       )

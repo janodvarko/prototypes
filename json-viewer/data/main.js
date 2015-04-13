@@ -11,6 +11,7 @@ var { Resizer } = require("resizer");
 
 // Register localization bundles.
 Locale.registerStringBundle("chrome://jsonviewer-firebug.sdk/locale/reps.properties");
+Locale.registerStringBundle("chrome://jsonviewer/locale/json-viewer.properties");
 
 /**
  * Render the main application component. It's the main tab bar displayed

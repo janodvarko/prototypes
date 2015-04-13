@@ -9,3 +9,6 @@
 
 @import "json-panel.css";
 @import "text-panel.css";
+@import "headers-panel.css";
+
+@import "headers.css";

@@ -3,11 +3,11 @@
 /******************************************************************************/
 /* JSON Panel */
 
-.JsonPanelBox {
+.jsonPanelBox {
   height: 100%;
 }
 
-.JsonPanelBox .jsonTree {
+.jsonPanelBox .jsonTree {
   overflow: auto;
-  height: calc(100% - 30px);
+  height: calc(100% - 20px);
 }
