@@ -22,8 +22,7 @@ var Headers = React.createClass({
   displayName: "Headers",
 
   getInitialState: function() {
-    return {
-    };
+    return {};
   },
 
   render: function() {
@@ -81,7 +80,7 @@ var HeaderList = React.createFactory(React.createClass({
     var rows = [];
     headers.forEach(header => {
       rows.push(
-        TR({},
+        TR({key: header.name},
           TD({className: "netInfoParamName"},
             SPAN({title: header.name}, header.name)
           ),
