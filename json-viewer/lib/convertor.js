@@ -13,6 +13,7 @@ const { getMostRecentBrowserWindow } = require("sdk/window/utils");
 const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
 const { devtools } = Cu.import("resource://gre/modules/devtools/Loader.jsm", {});
 const NetworkHelper = devtools.require("devtools/toolkit/webconsole/network-helper");
+const { gDevTools } = Cu.import("resource:///modules/devtools/gDevTools.jsm", {});
 
 // Firebug SDK
 const { Locale } = require("firebug.sdk/lib/core/locale.js");
@@ -35,6 +36,23 @@ var Convertor = Class(
   get wrappedJSObject() this,
 
   initialize: function() {
+    this.onPrefChanged = this.onPrefChanged.bind(this);
+
+    gDevTools.on("pref-changed", this.onPrefChanged);
+  },
+
+  destroy: function() {
+    gDevTools.off("pref-changed", this.onPrefChanged);
+  },
+
+  // Preferences
+
+  onPrefChanged: function(event, data) {
+    if (data.pref != "devtools.theme") {
+      return;
+    }
+
+    // xxxHonza: update opened windows.
   },
 
   /**

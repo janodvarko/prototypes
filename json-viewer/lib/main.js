@@ -2,8 +2,11 @@
 
 "use strict";
 
+// Add-on SDK
 const { Cc, Ci, components } = require("chrome");
 const xpcom = require("sdk/platform/xpcom");
+
+// JSON Viewer
 const { Convertor } = require("./convertor");
 
 // This component is an implementation of nsIStreamConverter that converts
@@ -39,8 +42,6 @@ function onLoad(options, callbacks) {
   // Tell Firefox that .json files are application/json
   categoryManager.addCategoryEntry("ext-to-type-mapping", "json",
     "application/json", false, true);
-
-  //prefs.register();
 };
 
 function onUnload(reason) {
@@ -52,7 +53,7 @@ function onUnload(reason) {
   categoryManager.addCategoryEntry(GECKO_VIEWER, JSON_TYPE,
     geckoViewer, false, false);
 
-  //prefs.unregister();
+  Convertor.destroy();
 };
 
 // Exports from this module
