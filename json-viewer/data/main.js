@@ -8,6 +8,7 @@ var React = require("react");
 // RDP Inspector
 var { MainTabbedArea } = require("components/main-tabbed-area");
 var { Resizer } = require("resizer");
+var { Search } = require("search");
 
 // Register localization bundles.
 Locale.registerStringBundle("chrome://jsonviewer-firebug.sdk/locale/reps.properties");
@@ -30,6 +31,10 @@ var Actions = {
     this.onCopy(jsonData);
   },
 
+  onSaveJson: function() {
+    this.onSave(jsonData);
+  },
+
   onCopyHeaders: function() {
     this.onCopy(headersData);
   },
@@ -37,6 +42,11 @@ var Actions = {
   onCopy: function(data) {
     var value = JSON.stringify(JSON.parse(data), null, "  ");
     postChromeMessage("copy", value);
+  },
+
+  onSave: function(data) {
+    var value = JSON.stringify(JSON.parse(data), null, "  ");
+    postChromeMessage("save", value);
   }
 }
 
@@ -53,6 +63,7 @@ var input = {
 var content = document.getElementById("content");
 var theApp = React.render(MainTabbedArea(input), content);
 var resizer = new Resizer(window, theApp);
+var search = new Search(window, theApp);
 
 // End of main.js
 });

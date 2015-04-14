@@ -38,6 +38,7 @@ var JsonToolbar = React.createClass({
   // Commands
 
   onSave: function(event) {
+    this.props.actions.onSaveJson();
   },
 
   onCopy: function(event) {

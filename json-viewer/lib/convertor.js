@@ -7,6 +7,7 @@ const { Class } = require("sdk/core/heritage");
 const { Unknown } = require("sdk/platform/xpcom");
 const Events = require("sdk/dom/events");
 const Clipboard = require("sdk/clipboard");
+const { getMostRecentBrowserWindow } = require("sdk/window/utils");
 
 // Platform
 const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
@@ -245,11 +246,62 @@ var Convertor = Class(
     case "copy":
       Clipboard.set(value, "text");
       break;
+
+    case "save":
+      let file = getTargetFile();
+      if (file) {
+        saveToFile(file, value);
+      }
     }
   },
 });
 
 // Helpers
+
+// Open File Save As dialog and let the user to pick proper file location.
+function getTargetFile() {
+  var fp = Cc["@mozilla.org/filepicker;1"].createInstance(Ci.nsIFilePicker);
+
+  var win = getMostRecentBrowserWindow();
+  fp.init(win, null, Ci.nsIFilePicker.modeSave);
+  fp.appendFilter("JSON Files","*.json; *.jsonp;");
+  fp.appendFilters(Ci.nsIFilePicker.filterText);
+  fp.appendFilters(Ci.nsIFilePicker.filterAll);
+  fp.filterIndex = 0;
+
+  var rv = fp.show();
+  if (rv == Ci.nsIFilePicker.returnOK || rv == Ci.nsIFilePicker.returnReplace) {
+    return fp.file;
+  }
+
+  return null;
+}
+
+function saveToFile(file, jsonString) {
+  var foStream = Cc["@mozilla.org/network/file-output-stream;1"].
+    createInstance(Ci.nsIFileOutputStream);
+
+  // write, create, truncate
+  foStream.init(file, 0x02 | 0x08 | 0x20, 0666, 0);
+
+  var convertor = Cc["@mozilla.org/intl/converter-output-stream;1"].
+    createInstance(Ci.nsIConverterOutputStream);
+
+  convertor.init(foStream, "UTF-8", 0, 0);
+
+  // The entire jsonString can be huge so, write the data in chunks.
+  var chunkLength = 1024*1204;
+  for (var i=0; i<=jsonString.length; i++) {
+    var data = jsonString.substr(i, chunkLength+1);
+    if (data) {
+      convertor.writeString(data);
+    }
+    i = i + chunkLength;
+  }
+
+  // this closes foStream
+  convertor.close();
+}
 
 function getCurrentTheme() {
   return Services.prefs.getCharPref("devtools.theme");

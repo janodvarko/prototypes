@@ -53,7 +53,8 @@ var MainTabbedArea = React.createClass({
         TabPane({eventKey: 1, tab: Locale.$STR("jsonViewer.tab.JSON")},
           JsonPanel({
             data: this.props.json,
-            actions: this.props.actions
+            actions: this.props.actions,
+            searchFilter: this.state.searchFilter
           })
         ),
         TabPane({eventKey: 2, tab: Locale.$STR("jsonViewer.tab.RawData")},
@@ -65,7 +66,8 @@ var MainTabbedArea = React.createClass({
         TabPane({eventKey: 3, tab: Locale.$STR("jsonViewer.tab.Headers")},
           HeadersPanel({
             data: this.props.headers,
-            actions: this.props.actions
+            actions: this.props.actions,
+            searchFilter: this.props.searchFilter
           })
         )
       )

@@ -2,6 +2,9 @@
 
 define(function(require, exports, module) {
 
+// For smooth incremental searching (in case the user is typing quickly).
+const searchDelay = 150;
+
 /**
  * This object represents a search box located at the
  * top right corner of the app.
@@ -44,9 +47,21 @@ var SearchBox =
 
   onSearch: function(searchBox) {
     var win = searchBox.ownerDocument.defaultView;
+
+    if (this.searchTimeout) {
+      win.clearTimeout(this.searchTimeout);
+    }
+
+    this.searchTimeout = win.setTimeout(this.doSearch.bind(this, searchBox),
+      searchDelay);
+  },
+
+  doSearch: function(searchBox) {
+    var win = searchBox.ownerDocument.defaultView;
     var event = new win.MessageEvent("search", {
       data: searchBox.value,
     });
+
     win.dispatchEvent(event);
   }
 }
