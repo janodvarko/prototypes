@@ -2,70 +2,56 @@
 
 define(function(require, exports, module) {
 
+// ReactJS
+var React = require("react");
+
+// Firebug SDK
+const { Reps } = require("reps/reps");
+
+// Constants
+const { INPUT } = Reps.DOM;
+
 // For smooth incremental searching (in case the user is typing quickly).
 const searchDelay = 150;
 
 /**
  * This object represents a search box located at the
- * top right corner of the app.
+ * top right corner of the application.
+ *
+ * xxxHonza localization
  */
-var SearchBox =
+var SearchBox = React.createClass(
 /** @lends SearchBox */
 {
-  create: function(parentNode) {
-    var doc = parentNode.ownerDocument;
-    var tabArea = doc.querySelector(".mainTabbedArea.nav-tabs");
-    var item = doc.createElement("li");
-    tabArea.appendChild(item);
-
-    // Search box
-    var searchBox = doc.createElement("input");
-    searchBox.setAttribute("class", "searchBox");
-    searchBox.setAttribute("type", "search");
-    searchBox.setAttribute("results", "true");
-    searchBox.setAttribute("placeholder", "Filter JSON");
-    item.appendChild(searchBox);
-
-    searchBox.addEventListener("command", this.onChange.bind(this, searchBox), false);
-    searchBox.addEventListener("input", this.onChange.bind(this, searchBox), false);
-    searchBox.addEventListener("keypress", this.onKeyPress.bind(this, searchBox), false);
+  render: function() {
+    return (
+      INPUT({className: "searchBox", placeholder: "Filter JSON",
+        ref: "searchBox", onChange: this.onChange})
+    )
   },
 
-  destroy: function(parentNode) {
-    var doc = parentNode.ownerDocument;
-    var searchBox = doc.querySelector(".searchBox");
-    searchBox.remove();
+  onChange: function(event) {
+    this.onSearch();
   },
 
-  onKeyPress: function(searchBox, event) {
-    this.onSearch(searchBox);
-  },
-
-  onChange: function(searchBox, event) {
-    this.onSearch(searchBox);
-  },
-
-  onSearch: function(searchBox) {
+  onSearch: function() {
+    var searchBox = this.refs.searchBox.getDOMNode();
     var win = searchBox.ownerDocument.defaultView;
 
     if (this.searchTimeout) {
       win.clearTimeout(this.searchTimeout);
     }
 
-    this.searchTimeout = win.setTimeout(this.doSearch.bind(this, searchBox),
+    this.searchTimeout = win.setTimeout(this.doSearch.bind(this),
       searchDelay);
   },
 
   doSearch: function(searchBox) {
-    var win = searchBox.ownerDocument.defaultView;
-    var event = new win.MessageEvent("search", {
-      data: searchBox.value,
-    });
-
-    win.dispatchEvent(event);
+    var searchBox = this.refs.searchBox.getDOMNode();
+    this.props.actions.onSearch(searchBox.value);
   }
-}
+});
 
 // Exports from this module
-exports.SearchBox = SearchBox;
+exports.SearchBox = React.createFactory(SearchBox);
 });

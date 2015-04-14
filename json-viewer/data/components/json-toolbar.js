@@ -6,11 +6,16 @@ define(function(require, exports, module) {
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
+// Firebug SDK
+const { Reps } = require("reps/reps");
+
+// JSON View
+const { SearchBox } = require("./search-box");
+
 // Constants
 var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
 
-const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
@@ -30,7 +35,10 @@ var JsonToolbar = React.createClass({
         ),
         Button({bsSize: "xsmall", onClick: this.onCopy},
           Locale.$STR("jsonViewer.Copy")
-        )
+        ),
+        SearchBox({
+          actions: this.props.actions
+        })
       )
     )
   },

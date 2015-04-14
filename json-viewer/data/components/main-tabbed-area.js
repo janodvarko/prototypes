@@ -13,7 +13,6 @@ const { Reps } = require("reps/reps");
 const { JsonPanel } = require("./json-panel");
 const { TextPanel } = require("./text-panel");
 const { HeadersPanel } = require("./headers-panel");
-const { SearchBox } = require("./search-box");
 
 // Constants
 const TabbedArea = React.createFactory(ReactBootstrap.TabbedArea);
@@ -34,16 +33,6 @@ var MainTabbedArea = React.createClass({
       json: {},
       headers: {}
    };
-  },
-
-  componentDidMount: function() {
-    var tabbedArea = this.refs.tabbedArea.getDOMNode();
-    SearchBox.create(tabbedArea.querySelector(".nav-tabs"));
-  },
-
-  componentWillUnmount: function() {
-    var tabbedArea = this.refs.tabbedArea.getDOMNode();
-    SearchBox.destroy(tabbedArea.querySelector(".nav-tabs"));
   },
 
   render: function() {

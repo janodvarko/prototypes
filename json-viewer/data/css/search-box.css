@@ -6,10 +6,10 @@
 .searchBox {
   height: 21px;
   font-size: 12px;
-  margin-top: 2px;
+  margin-top: 1px;
   border: 1px solid rgb(170, 188, 207);
   width: 200px;
-  position: fixed; /* xxxHonza: how to avoid fixed position? */
+  position: fixed;
   right: 5px;
   background-image: url("search.svg");
   background-repeat: no-repeat;
