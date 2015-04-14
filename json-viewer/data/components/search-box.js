@@ -12,7 +12,7 @@ const { Reps } = require("reps/reps");
 const { INPUT } = Reps.DOM;
 
 // For smooth incremental searching (in case the user is typing quickly).
-const searchDelay = 150;
+const searchDelay = 250;
 
 /**
  * This object represents a search box located at the

@@ -31,7 +31,7 @@ var HeadersPanel = React.createClass({
   },
 
   render: function() {
-    var data = JSON.parse(this.props.data);
+    var data = this.props.data;
 
     return (
       DIV({className: "headersPanelBox"},

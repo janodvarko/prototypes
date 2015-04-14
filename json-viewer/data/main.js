@@ -16,8 +16,12 @@ Locale.registerStringBundle("chrome://jsonviewer/locale/json-viewer.properties")
 var json = document.getElementById("json");
 var headers = document.getElementById("headers");
 
-var jsonData = json.textContent;
-var headersData = headers.textContent;
+var input = {
+  jsonText: json.textContent,
+  headersText: headers.textContent,
+  json: JSON.parse(json.textContent),
+  headers: JSON.parse(headers.textContent),
+}
 
 json.remove();
 headers.remove();
@@ -25,38 +29,32 @@ headers.remove();
 /**
  * Application actions/commands
  */
-var Actions = {
+input.actions = {
   onCopyJson: function() {
-    this.onCopy(jsonData);
+    this.onCopy(input.json);
   },
 
   onSaveJson: function() {
-    this.onSave(jsonData);
+    this.onSave(input.json);
   },
 
   onCopyHeaders: function() {
-    this.onCopy(headersData);
+    this.onCopy(input.headers);
   },
 
   onCopy: function(data) {
-    var value = JSON.stringify(JSON.parse(data), null, "  ");
+    var value = JSON.stringify(data, null, "  ");
     postChromeMessage("copy", value);
   },
 
   onSave: function(data) {
-    var value = JSON.stringify(JSON.parse(data), null, "  ");
+    var value = JSON.stringify(data, null, "  ");
     postChromeMessage("save", value);
   },
 
   onSearch: function(value) {
     theApp.setState({searchFilter: value});
   }
-}
-
-var input = {
-  json: jsonData,
-  headers: headersData,
-  actions: Actions
 }
 
 /**

@@ -32,9 +32,8 @@ var JsonPanel = React.createClass({
     var content;
 
     try {
-      var data = JSON.parse(this.props.data);
       content = TreeView({
-        data: data,
+        data: this.props.data,
         mode: "tiny",
         searchFilter: this.props.searchFilter
       });

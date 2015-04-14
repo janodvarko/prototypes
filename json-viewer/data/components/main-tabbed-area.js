@@ -48,7 +48,7 @@ var MainTabbedArea = React.createClass({
         ),
         TabPane({eventKey: 2, tab: Locale.$STR("jsonViewer.tab.RawData")},
           TextPanel({
-            data: this.props.json,
+            data: this.props.jsonText,
             actions: this.props.actions
           })
         ),
