@@ -2,19 +2,19 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 const React = require("react");
 
 // Firebug SDK
 const { Reps } = require("reps/repository");
 
-// RDP Inspector
-
-// Shortcuts
+// Constants
 const { TR, TD, TABLE, TBODY, THEAD, TH, DIV, SPAN, CODE } = Reps.DOM;
 
 /**
- * @template xxxHonza TODO docs
+ * @template This template is responsible for rendering basic layout
+ * of the 'Headers' panel. It displays HTTP headers groups such as
+ * received or response headers.
  */
 var Headers = React.createClass({
 /** @lends Headers */
@@ -57,7 +57,8 @@ var Headers = React.createClass({
 });
 
 /**
- * @template xxxHonza TODO docs
+ * @template This template renders headers list,
+ * name + value pairs.
  */
 var HeaderList = React.createFactory(React.createClass({
 /** @lends HeaderList */
@@ -80,7 +81,7 @@ var HeaderList = React.createFactory(React.createClass({
     var rows = [];
     headers.forEach(header => {
       rows.push(
-        TR({"role": "listitem"},
+        TR({},
           TD({className: "netInfoParamName"},
             SPAN({title: header.name}, header.name)
           ),

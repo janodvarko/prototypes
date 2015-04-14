@@ -2,7 +2,7 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 const React = require("react");
 
 // Firebug SDK
@@ -12,11 +12,12 @@ const { TreeView } = require("reps/tree-view");
 // RDP Inspector
 const { JsonToolbar } = require("./json-toolbar");
 
-// Shortcuts
-const { TR, TD, TABLE, TBODY, THEAD, TH, DIV } = Reps.DOM;
+// Constants
+const { DIV } = Reps.DOM;
 
 /**
- * @template xxxHonza TODO docs
+ * @template This template represents the 'JSON' panel and responsible
+ * for rendering its content.
  */
 var JsonPanel = React.createClass({
 /** @lends JsonPanel */
@@ -24,8 +25,7 @@ var JsonPanel = React.createClass({
   displayName: "JsonPanel",
 
   getInitialState: function() {
-    return {
-    };
+    return {};
   },
 
   render: function() {

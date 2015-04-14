@@ -21,7 +21,8 @@ const TabPane = React.createFactory(ReactBootstrap.TabPane);
 const { DIV } = Reps.DOM;
 
 /**
- * @template xxxHonza: TODO: localization
+ * @template This object represents the root application template
+ * responsible for rendering the basic tab layout.
  */
 var MainTabbedArea = React.createClass({
 /** @lends MainTabbedArea */
@@ -49,17 +50,17 @@ var MainTabbedArea = React.createClass({
     return (
       TabbedArea({className: "mainTabbedArea", defaultActiveKey: 1,
         animation: false, ref: "tabbedArea"},
-        TabPane({eventKey: 1, tab: "JSON"},
+        TabPane({eventKey: 1, tab: Locale.$STR("jsonViewer.tab.JSON")},
           JsonPanel({
             data: this.props.json
           })
         ),
-        TabPane({eventKey: 2, tab: "Raw Data"},
+        TabPane({eventKey: 2, tab: Locale.$STR("jsonViewer.tab.RawData")},
           TextPanel({
             data: this.props.json
           })
         ),
-        TabPane({eventKey: 3, tab: "Headers"},
+        TabPane({eventKey: 3, tab: Locale.$STR("jsonViewer.tab.Headers")},
           HeadersPanel({
             data: this.props.headers
           })

@@ -3,7 +3,8 @@
 define(function(require, exports, module) {
 
 /**
- * TODO docs xxxHonza: can we use ReactJS?
+ * This object represents a search box located at the
+ * top right corner of the app.
  */
 var SearchBox =
 /** @lends SearchBox */

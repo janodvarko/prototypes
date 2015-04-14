@@ -2,11 +2,11 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
-// Shortcuts
+// Constants
 var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
 
@@ -14,7 +14,8 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * xxxHonza: TODO docs localization
+ * @template This template is responsible for rendering a toolbar
+ * within the 'Headers' panel.
  */
 var HeadersToolbar = React.createClass({
 /** @lends HeadersToolbar */
@@ -24,21 +25,14 @@ var HeadersToolbar = React.createClass({
   render: function() {
     return (
       ButtonToolbar({className: "toolbar"},
-        Button({bsSize: "xsmall", onClick: this.onRefresh},
-          "Refresh"
-        ),
         Button({bsSize: "xsmall", onClick: this.onCopy},
-          "Copy"
+          Locale.$STR("jsonViewer.Copy")
         )
       )
     )
   },
 
   // Commands
-
-  onRefresh: function(event) {
-    // xxxHonza: TODO
-  },
 
   onCopy: function(event) {
     // xxxHonza: TODO

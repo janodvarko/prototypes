@@ -2,7 +2,7 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 const React = require("react");
 
 // Firebug SDK
@@ -11,11 +11,12 @@ const { Reps } = require("reps/repository");
 // RDP Inspector
 const { TextToolbar } = require("./text-toolbar");
 
-// Shortcuts
+// Constants
 const { DIV, PRE } = Reps.DOM;
 
 /**
- * @template xxxHonza TODO docs
+ * @template This template represents the 'Raw Data' panel displaying
+ * JSON as a text received from the server.
  */
 var TextPanel = React.createClass({
 /** @lends TextPanel */
@@ -23,14 +24,10 @@ var TextPanel = React.createClass({
   displayName: "TextPanel",
 
   getInitialState: function() {
-    return {
-    };
+    return {};
   },
 
   render: function() {
-    //var json = JSON.parse(this.props.data);
-    //var jsonPretty = JSON.stringify(json, null, 2);
-
     return (
       DIV({className: "textPanelBox"},
         TextToolbar(),
@@ -42,5 +39,4 @@ var TextPanel = React.createClass({
 
 // Exports from this module
 exports.TextPanel = React.createFactory(TextPanel);
-
 });

@@ -2,11 +2,11 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
-// Shortcuts
+// Constants
 var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
 
@@ -14,7 +14,8 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * xxxHonza: TODO docs localization
+ * @template This template represents a toolbar within
+ * the 'JSON' panel.
  */
 var JsonToolbar = React.createClass({
 /** @lends JsonToolbar */
@@ -25,10 +26,10 @@ var JsonToolbar = React.createClass({
     return (
       ButtonToolbar({className: "toolbar"},
         Button({bsSize: "xsmall", onClick: this.onSave},
-          "Save"
+          Locale.$STR("jsonViewer.Save")
         ),
         Button({bsSize: "xsmall", onClick: this.onCopy},
-          "Copy"
+          Locale.$STR("jsonViewer.Copy")
         )
       )
     )
@@ -37,12 +38,9 @@ var JsonToolbar = React.createClass({
   // Commands
 
   onSave: function(event) {
-    // xxxHonza: TODO
-    alert("TODO");
   },
 
   onCopy: function(event) {
-    // xxxHonza: TODO
   },
 });
 

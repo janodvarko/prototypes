@@ -2,11 +2,11 @@
 
 define(function(require, exports, module) {
 
-// Dependencies
+// ReactJS
 var React = require("react");
 var ReactBootstrap = require("react-bootstrap");
 
-// Shortcuts
+// Constants
 var ButtonToolbar = React.createFactory(ReactBootstrap.ButtonToolbar);
 var Button = React.createFactory(ReactBootstrap.Button);
 
@@ -14,7 +14,8 @@ const { Reps } = require("reps/reps");
 const { DIV } = Reps.DOM;
 
 /**
- * xxxHonza: TODO docs localization
+ * @template This object represents a toolbar displayed within the
+ * 'Raw Data' panel.
  */
 var TextToolbar = React.createClass({
 /** @lends TextToolbar */
@@ -25,10 +26,10 @@ var TextToolbar = React.createClass({
     return (
       ButtonToolbar({className: "toolbar"},
         Button({bsSize: "xsmall", onClick: this.onPrettify},
-          "Pretty Print"
+          Locale.$STR("jsonViewer.PrettyPrint")
         ),
         Button({bsSize: "xsmall", onClick: this.onCopy},
-          "Copy"
+          Locale.$STR("jsonViewer.Copy")
         )
       )
     )
@@ -37,12 +38,9 @@ var TextToolbar = React.createClass({
   // Commands
 
   onPrettify: function(event) {
-    // xxxHonza: TODO
-    alert("TODO");
   },
 
   onCopy: function(event) {
-    // xxxHonza: TODO
   },
 });
 
