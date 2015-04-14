@@ -30,26 +30,24 @@ var Headers = React.createClass({
     var data = this.props.data;
 
     return (
-      DIV({className: "netInfoHeadersTable", "role": "tabpanel"},
-        DIV({className: "netHeadersGroup collapsed", "data-pref": "netResponseHeadersVisible"},
-          DIV({className: "netInfoHeadersGroup netInfoResponseHeadersTitle"},
-            SPAN({className: "netHeader twisty",
-              onclick: "$toggleHeaderContent"},
+      DIV({className: "netInfoHeadersTable"},
+        DIV({className: "netHeadersGroup"},
+          DIV({className: "netInfoHeadersGroup"},
+            SPAN({className: "netHeader twisty"},
               Locale.$STR("jsonViewer.responseHeaders")
             )
           ),
-          TABLE({className: "netInfoHeadersTable", cellPadding: 0, cellSpacing: 0},
+          TABLE({cellPadding: 0, cellSpacing: 0},
             HeaderList({headers: data.response})
           )
         ),
-        DIV({className: "netHeadersGroup collapsed", "data-pref": "netRequestHeadersVisible"},
-          DIV({className: "netInfoHeadersGroup netInfoRequestHeadersTitle"},
-            SPAN({className: "netHeader twisty",
-              onclick: "$toggleHeaderContent"},
+        DIV({className: "netHeadersGroup"},
+          DIV({className: "netInfoHeadersGroup"},
+            SPAN({className: "netHeader twisty"},
               Locale.$STR("jsonViewer.requestHeaders")
             )
           ),
-          TABLE({className: "netInfoHeadersTable", cellPadding: 0, cellSpacing: 0},
+          TABLE({cellPadding: 0, cellSpacing: 0},
             HeaderList({headers: data.request})
           )
         )
@@ -83,21 +81,18 @@ var HeaderList = React.createFactory(React.createClass({
     headers.forEach(header => {
       rows.push(
         TR({"role": "listitem"},
-          TD({className: "netInfoParamName", "role": "presentation"},
+          TD({className: "netInfoParamName"},
             SPAN({title: header.name}, header.name)
           ),
-          TD({className: "netInfoParamValue", "role": "list", "aria-label": "$param.name"},
-            CODE({className: "focusRow subFocusRow", "role": "listitem"},
-              header.value
-            )
+          TD({className: "netInfoParamValue"},
+            CODE({}, header.value)
           )
         )
       )
     });
 
     return (
-      TBODY({className: "netInfoHeadersBody", "role": "list",
-        "aria-label": Locale.$STR("xhrSpy.responseHeaders")},
+      TBODY({},
         rows
       )
     )
