@@ -5,6 +5,8 @@ const self = require("sdk/self");
 const { Cc, Ci, Cu } = require("chrome");
 const { Class } = require("sdk/core/heritage");
 const { Unknown } = require("sdk/platform/xpcom");
+const Events = require("sdk/dom/events");
+const Clipboard = require("sdk/clipboard");
 
 // Platform
 const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
@@ -114,6 +116,12 @@ var Convertor = Class(
 
     let win = NetworkHelper.getWindowForRequest(aRequest);
     Content.exportIntoContentScope(win, Locale, "Locale");
+
+    Events.once(win, "DOMContentLoaded", event => {
+      Cu.exportFunction(this.postChromeMessage, win, {
+        defineAs: "postChromeMessage"
+      });
+    })
 
     // This regex attempts to match a JSONP structure:
     //    * Any amount of whitespace (including unicode nonbreaking spaces) between the start of the file and the callback name
@@ -226,6 +234,18 @@ var Convertor = Class(
       '</head><body>' +
       output +
       '</body></html>';
+  },
+
+  // Chrome <-> Content communication
+
+  postChromeMessage: function(type, args, objects) {
+    var value = args;
+
+    switch (type) {
+    case "copy":
+      Clipboard.set(value, "text");
+      break;
+    }
   },
 });
 

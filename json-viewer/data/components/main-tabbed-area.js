@@ -52,17 +52,20 @@ var MainTabbedArea = React.createClass({
         animation: false, ref: "tabbedArea"},
         TabPane({eventKey: 1, tab: Locale.$STR("jsonViewer.tab.JSON")},
           JsonPanel({
-            data: this.props.json
+            data: this.props.json,
+            actions: this.props.actions
           })
         ),
         TabPane({eventKey: 2, tab: Locale.$STR("jsonViewer.tab.RawData")},
           TextPanel({
-            data: this.props.json
+            data: this.props.json,
+            actions: this.props.actions
           })
         ),
         TabPane({eventKey: 3, tab: Locale.$STR("jsonViewer.tab.Headers")},
           HeadersPanel({
-            data: this.props.headers
+            data: this.props.headers,
+            actions: this.props.actions
           })
         )
       )

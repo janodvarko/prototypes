@@ -35,7 +35,7 @@ var HeadersToolbar = React.createClass({
   // Commands
 
   onCopy: function(event) {
-    // xxxHonza: TODO
+    this.props.actions.onCopyHeaders();
   },
 });
 

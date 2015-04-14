@@ -30,7 +30,7 @@ var TextPanel = React.createClass({
   render: function() {
     return (
       DIV({className: "textPanelBox"},
-        TextToolbar(),
+        TextToolbar({actions: this.props.actions}),
         PRE({className: "data"}, this.props.data)
       )
     );

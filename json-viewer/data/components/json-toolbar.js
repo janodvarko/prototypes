@@ -41,6 +41,7 @@ var JsonToolbar = React.createClass({
   },
 
   onCopy: function(event) {
+    this.props.actions.onCopyJson();
   },
 });
 

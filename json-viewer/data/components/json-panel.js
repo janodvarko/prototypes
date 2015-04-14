@@ -45,7 +45,7 @@ var JsonPanel = React.createClass({
 
     return (
       DIV({className: "jsonPanelBox"},
-        JsonToolbar(),
+        JsonToolbar({actions: this.props.actions}),
         DIV({className: "jsonTree"},
           content
         )

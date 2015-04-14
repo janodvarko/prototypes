@@ -41,6 +41,7 @@ var TextToolbar = React.createClass({
   },
 
   onCopy: function(event) {
+    this.props.actions.onCopyJson();
   },
 });
 

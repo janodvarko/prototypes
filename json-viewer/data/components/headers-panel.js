@@ -35,7 +35,7 @@ var HeadersPanel = React.createClass({
 
     return (
       DIV({className: "headersPanelBox"},
-        HeadersToolbar(),
+        HeadersToolbar({actions: this.props.actions}),
         Headers({data: data})
       )
     );
