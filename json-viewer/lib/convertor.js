@@ -1,23 +1,39 @@
 /* See license.txt for terms of usage */
 
+"use strict";
+
+let Cu = Components.utils;
+
+let { devtools } = Cu.import("resource://gre/modules/devtools/Loader.jsm", {});
+let require = devtools.require;
+
 // Add-on SDK
 const self = require("sdk/self");
-const { Cc, Ci, Cu } = require("chrome");
+const { Cc, Ci, components } = require("chrome");
 const { Class } = require("sdk/core/heritage");
 const { Unknown } = require("sdk/platform/xpcom");
 const Events = require("sdk/dom/events");
 const Clipboard = require("sdk/clipboard");
 const { getMostRecentBrowserWindow } = require("sdk/window/utils");
+const xpcom = require("sdk/platform/xpcom");
 
 // Platform
 const { Services } = Cu.import("resource://gre/modules/Services.jsm", {});
-const { devtools } = Cu.import("resource://gre/modules/devtools/Loader.jsm", {});
 const NetworkHelper = devtools.require("devtools/toolkit/webconsole/network-helper");
 const { gDevTools } = Cu.import("resource:///modules/devtools/gDevTools.jsm", {});
 
 // Firebug SDK
-const { Locale } = require("firebug.sdk/lib/core/locale.js");
-const { Content } = require("firebug.sdk/lib/core/content.js");
+const { Locale } = require("chrome://jsonviewer-firebug.sdk/content/lib/core/locale.js");
+const { Content } = require("chrome://jsonviewer-firebug.sdk/content/lib/core/content.js");
+
+const OPEN_FLAGS = {
+  RDONLY: parseInt("0x01"),
+  WRONLY: parseInt("0x02"),
+  CREATE_FILE: parseInt("0x08"),
+  APPEND: parseInt("0x10"),
+  TRUNCATE: parseInt("0x20"),
+  EXCL: parseInt("0x80")
+};
 
 /**
  * xxxHonza TODO docs
@@ -124,6 +140,8 @@ var Convertor = Class(
     let cleanData = "";
     let callback = "";
 
+    console.log("onStopRequest")
+
     let headers = {
       request: [],
       response: []
@@ -178,6 +196,7 @@ var Convertor = Class(
       headers = JSON.stringify(headers);
       outputDoc = this.toHTML(cleanData, headers, this.uri);
     } catch (e) {
+      Cu.reportError("JSON Viewer ERROR " + e);
       outputDoc = this.toErrorPage(e, this.data, this.uri);
     }
 
@@ -215,13 +234,13 @@ var Convertor = Class(
   },
 
   toHTML: function(json, headers, title) {
-    var domStyle = self.data.url(
-      "../node_modules/firebug.sdk/skin/classic/shared/domTree.css");
     var themeClassName = "theme-" + getCurrentTheme();
+    var baseUrl = "resource://jsonviewer-at-janodvarko-dot-cz/data/";
+    var domStyle = baseUrl + "../node_modules/firebug.sdk/skin/classic/shared/domTree.css";
 
     return '<!DOCTYPE html>\n' +
       '<html><head><title>' + this.htmlEncode(title) + '</title>' +
-      '<base href="' + self.data.url() + '">' +
+      '<base href="' + baseUrl + '">' +
       '<link rel="stylesheet" type="text/css" href="css/main.css">' +
       '<link rel="stylesheet" type="text/css" href="chrome://browser/skin/devtools/light-theme.css">' +
       '<link rel="stylesheet" type="text/css" href="' + domStyle + '">' +
@@ -300,7 +319,11 @@ function saveToFile(file, jsonString) {
     createInstance(Ci.nsIFileOutputStream);
 
   // write, create, truncate
-  foStream.init(file, 0x02 | 0x08 | 0x20, 0666, 0);
+  let openFlags = OPEN_FLAGS.WRONLY | OPEN_FLAGS.CREATE_FILE |
+    OPEN_FLAGS.TRUNCATE;
+
+  let permFlags = parseInt("0666", 8);
+  foStream.init(file, openFlags, permFlags, 0);
 
   var convertor = Cc["@mozilla.org/intl/converter-output-stream;1"].
     createInstance(Ci.nsIConverterOutputStream);
@@ -325,5 +348,33 @@ function getCurrentTheme() {
   return Services.prefs.getCharPref("devtools.theme");
 }
 
-// Exports from this module
-exports.Convertor = Convertor;
+// This component is an implementation of nsIStreamConverter that converts
+// application/json to html
+const JSON_TYPE = "application/json";
+const CONTRACT_ID = "@mozilla.org/streamconv;1?from=" + JSON_TYPE + "&to=*/*";
+const CLASS_ID = "{d8c9acee-dec5-11e4-8c75-1681e6b88ec1}";
+const GECKO_VIEWER = "Gecko-Content-Viewers";
+
+// Create and register the service
+var service = xpcom.Service({
+  id: components.ID(CLASS_ID),
+  contract: CONTRACT_ID,
+  Component: Convertor,
+  register: false,
+  unregister: false
+});
+
+// Hack to remove FF8+'s built-in JSON-as-text viewer
+var categoryManager = Cc["@mozilla.org/categorymanager;1"].
+  getService(Ci.nsICategoryManager);
+
+if (!xpcom.isRegistered(service)) {
+  xpcom.register(service);
+}
+
+// Remove built-in JSON viewer
+categoryManager.deleteCategoryEntry(GECKO_VIEWER, JSON_TYPE, false);
+
+// Tell Firefox that .json files are application/json
+categoryManager.addCategoryEntry("ext-to-type-mapping", "json",
+  "application/json", false, true);
