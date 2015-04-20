@@ -36,7 +36,8 @@ const OPEN_FLAGS = {
 };
 
 /**
- * xxxHonza TODO docs
+ * This object detects application/json content type and converts it
+ * into a JSON Viewer application that allows simple JSON inspection.
  */
 var Convertor = Class(
 /** @lends Convertor */
