@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <title>Server Side Logging, test1</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<h1>Server Side Logging, Test 1</h1>
+
+<p>This test-case is intended for <a href="http://code.google.com/p/fbug/issues/detail?id=601">Bug 1168872</a>
+- <span class="h3">Support for server side logging</span>.
+
+<br/>
+<i>Jan Odvarko, odvarko@gmail.com</i>
+</p>
+
+<ol>
+<li>Use the <i>XHR</i> button to generate XMLHttpRequests.</li>
+<li>The response has server-logs stored in HTTP headers</li>
+<li>Check out the Console panel</li>
+<br/>
+<button id="testButton" onclick="executeRequest()">XHR</button>
+
+<script type="text/javascript">
+function executeRequest(postData){
+   var request = new XMLHttpRequest();
+   request.open("GET", "test1.php", true);
+   request.send(null);
+}
+</script>
+
+</body>
+</html>
