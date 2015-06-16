@@ -11,3 +11,29 @@
   overflow: auto;
   height: calc(100% - 20px);
 }
+
+/******************************************************************************/
+/* JSON Tree */
+
+.domTable {
+}
+
+.memberRow {
+}
+
+.memberChildren {
+  padding-left: 16px;
+}
+
+.memberLabelCell,
+.memberValueCell {
+  display: table-cell;
+}
+
+.memberLabelCell {
+  min-width: 30px;
+}
+
+.memberRow:hover {
+  background-color: transparent !important;
+}

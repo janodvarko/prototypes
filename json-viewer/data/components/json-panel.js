@@ -7,7 +7,7 @@ const React = require("react");
 
 // Firebug SDK
 const { Reps } = require("reps/repository");
-const { TreeView } = require("reps/tree-view");
+const { JsonTree } = require("./json-tree");
 
 // RDP Inspector
 const { JsonToolbar } = require("./json-toolbar");
@@ -32,7 +32,7 @@ var JsonPanel = React.createClass({
     var content;
 
     try {
-      content = TreeView({
+      content = JsonTree({
         data: this.props.data,
         mode: "tiny",
         searchFilter: this.props.searchFilter
