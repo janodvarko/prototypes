@@ -7,7 +7,9 @@ See also [bug 1259819](https://bugzilla.mozilla.org/show_bug.cgi?id=1259819)
 The prototype consists of a simple web application bundled with
 Webpack. The app uses webpack configuration file that
 allows loading React component directly from Mozilla Firefox
-source tree (must be locally [cloned](http://hg.mozilla.org/integration/fx-team)).
+source tree (must be locally cloned from
+[hg](http://hg.mozilla.org/integration/fx-team) or
+[git](https://github.com/mozilla/gecko-dev/tree/fx-team)).
 
 Concept used in this prototype allows a lot faster development
 process since React components can be loaded directly into
