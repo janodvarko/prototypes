@@ -1,0 +1,14 @@
+/.idea/
+npm-debug.log
+node_modules
+dist
+bundle.js
+*.sw*
+lib
+build-config.json
+.DS_Store
+.nyc_output/
+*~
+/browser.db
+.electron
+.cache
