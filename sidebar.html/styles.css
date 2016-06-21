@@ -5,4 +5,5 @@ body {
   padding: 0;
   font-family: Lucida Grande, Tahoma, sans-serif;
   font-size: 11px;
+  overflow: hidden;
 }
