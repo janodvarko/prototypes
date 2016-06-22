@@ -42,8 +42,7 @@ window.onConnect = function(event) {
   connectClient().then(response => {
     let selectedTab = response.tabs[0];
     connectTab(selectedTab).then(target => {
-      document.getElementById("status").innerHTML =
-        "Connected to: " + selectedTab.url;
+      $("#status").innerHTML = "Connected to: " + selectedTab.url;
 
       tabTarget = target;
 
@@ -53,13 +52,13 @@ window.onConnect = function(event) {
 }
 
 window.onEvaluate = function() {
-  let expression = document.getElementById("expression").value;
+  let expression = $("#expression").value;
 
   getGrip(tabTarget, expression).then(grip => {
     let rep = Rep({object: grip, defaultRep: Grip});
     var theApp = ReactDOM.render(
       rep,
-      document.getElementById("result")
+      $("#result")
     );
 
     renderResponse(grip);
@@ -67,13 +66,21 @@ window.onEvaluate = function() {
 }
 
 window.onParse = function() {
-  let json = document.getElementById("mockedGrip").value;
-  let grip = JSON.parse(json);
+  let json = $("#mockedGrip").value;
+
+  let grip;
+
+  try {
+    grip = JSON.parse(json);
+  } catch (err) {
+    $("#parseError").innerHTML = err;
+    return;
+  }
 
   let rep = Rep({object: grip, defaultRep: Grip});
   var theApp = ReactDOM.render(
     rep,
-    document.getElementById("result")
+    $("#result")
   );
 
   renderResponse(grip);
@@ -106,9 +113,14 @@ function renderResponse(response) {
 
   ReactDOM.render(
     tree,
-    document.getElementById("response")
+    $("#response")
   );
 
-  document.getElementById("json").innerHTML =
-    JSON.stringify(response);
+  $("#json").innerHTML = JSON.stringify(response);
+}
+
+// Helpers
+
+function $(selector) {
+  return document.querySelector(selector);
 }
