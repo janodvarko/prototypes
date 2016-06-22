@@ -26,11 +26,11 @@ Here is how it works in this particular scenario:
   - github.com
     - janodvarko
       - prototypes
-        + sidebar.html
+        + reps
 ```
 
 * `devtools` Root directory for Firefox built-in devtools
-* `sidebar.html` Root directory for this prototype
+* `reps` Root directory for this prototype
 
 Webpack config is using the following alias (see `webpack.config` file):
 
@@ -40,11 +40,7 @@ This allows requiring devtools modules as follows:
 
 `require("devtools/client/shared/components/tabs/sidebar");`
 
-Loading CSS files from `devtools` directory is done as follows
-(see `index.html` file):
-
-
-`../../../../mozilla.org/fx-team/devtools/client/themes/variables.css`
+See also [sidebar.html](https://github.com/janodvarko/prototypes/blob/master/sidebar.html/README.md)
 
 Run
 ---

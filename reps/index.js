@@ -66,6 +66,19 @@ window.onEvaluate = function() {
   });
 }
 
+window.onParse = function() {
+  let json = document.getElementById("mockedGrip").value;
+  let grip = JSON.parse(json);
+
+  let rep = Rep({object: grip, defaultRep: Grip});
+  var theApp = ReactDOM.render(
+    rep,
+    document.getElementById("result")
+  );
+
+  renderResponse(grip);
+}
+
 function getGrip(target, expression) {
   return new Promise((resolve, reject) => {
     target.activeConsole.evaluateJSAsync(expression, res => {

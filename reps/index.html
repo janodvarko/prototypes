@@ -19,10 +19,9 @@
 
   <p>
     First you need to run <i>listen 6080</i> command in the Developer Toolbar (Shift+F2).
-    Then you can connect to the backend (you need to Connect after every page refresh)
-  </p>
-
-  <p>
+    Then you can connect to the backend (you need to Connect after every page refresh,
+    listen command execute just once)
+    <br/>
     <button onclick="onConnect()">Connect</button>
     <span id="status"></button>
   </p>
@@ -30,12 +29,20 @@
   <p>
     Next, you can evaluate an expression within target page scope and see how
     the result (grip) looks like when rendered using reps:
-  </p>
-
-  <p>
+    <br/>
     <button onclick="onEvaluate()">Evaluate</button>
     <input id="expression" value="_a"></input>
   </p>
+
+  <p>
+    As an alternative for live evaluation, you might want to read
+    a grip from an existing JSON string (you don't have to be connected
+    to the backend for static parsing):
+    <textarea id="mockedGrip" value="" cols="100"></textarea>
+    <button onclick="onParse()">Parse</button>
+  </p>
+
+  <br/>
 
   <p>
     And here is the result rendered using reps:
