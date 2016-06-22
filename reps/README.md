@@ -34,7 +34,7 @@ Here is how it works in this particular scenario:
 
 Webpack config is using the following alias (see `webpack.config` file):
 
-"devtools" => "../../../../mozilla.org/fx-team/devtools"
+`devtools" => "../../../../mozilla.org/fx-team/devtools`
 
 This allows requiring devtools modules as follows:
 

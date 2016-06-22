@@ -56,10 +56,7 @@ window.onEvaluate = function() {
 
   getGrip(tabTarget, expression).then(grip => {
     let rep = Rep({object: grip, defaultRep: Grip});
-    var theApp = ReactDOM.render(
-      rep,
-      $("#result")
-    );
+    var theApp = ReactDOM.render(rep, $("#result"));
 
     renderResponse(grip);
   });
@@ -78,10 +75,7 @@ window.onParse = function() {
   }
 
   let rep = Rep({object: grip, defaultRep: Grip});
-  var theApp = ReactDOM.render(
-    rep,
-    $("#result")
-  );
+  var theApp = ReactDOM.render(rep, $("#result"));
 
   renderResponse(grip);
 }
@@ -111,10 +105,7 @@ function renderResponse(response) {
     renderValue: renderValue,
   });
 
-  ReactDOM.render(
-    tree,
-    $("#response")
-  );
+  ReactDOM.render(tree, $("#response"));
 
   $("#json").innerHTML = JSON.stringify(response);
 }
