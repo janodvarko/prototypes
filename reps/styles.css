@@ -1,0 +1,26 @@
+/* See license.txt for terms of usage */
+
+#status {
+  color: green;
+}
+
+#result,
+.treeTable,
+#json {
+  font-size: 11px;
+  font-family: Lucida Grande, Tahoma, sans-serif;
+}
+
+.border,
+#json {
+  border: 1px solid lightgray;
+  padding-right: 20px;
+}
+
+#json {
+  padding: 8px;
+}
+
+p {
+  width: 600px;
+}

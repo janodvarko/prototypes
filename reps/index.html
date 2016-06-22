@@ -1,0 +1,56 @@
+<html class="theme-light theme-firebug">
+<head>
+  <title>Reps Test</title>
+  <meta charset="utf-8"/>
+  <script type="text/javascript" src="./node_modules/react/dist/react.js"></script>
+  <script type="text/javascript" src="./node_modules/react-dom/dist/react-dom.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="resource://devtools/client/shared/components/reps/reps.css">
+  <link rel="stylesheet" type="text/css" href="resource://devtools/client/shared/components/tree/tree-view.css">
+  <link rel="stylesheet" type="text/css" href="resource:///modules/devtools/client/themes/variables.css">
+</head>
+<body class="theme-body">
+  <h1>Rep Tester</h1>
+  <p>This tool is intended as simple <b>Reps</b> tester. It connects to the backend
+  runnning in <i>this</i> browser. It attaches to the first tab running in this
+  browser so, make sure this page is <i>not</i> the first tab otherwise it
+  would attach to itself and cause the browser to freeze. This is known limitation
+  and it'll be fixed later.</p>
+
+  <p>
+    First you need to run <i>listen 6080</i> command in the Developer Toolbar (Shift+F2).
+    Then you can connect to the backend (you need to Connect after every page refresh)
+  </p>
+
+  <p>
+    <button onclick="onConnect()">Connect</button>
+    <span id="status"></button>
+  </p>
+
+  <p>
+    Next, you can evaluate an expression within target page scope and see how
+    the result (grip) looks like when rendered using reps:
+  </p>
+
+  <p>
+    <button onclick="onEvaluate()">Evaluate</button>
+    <input id="expression" value="_a"></input>
+  </p>
+
+  <p>
+    And here is the result rendered using reps:
+    <div id="result"></div>
+  </p>
+
+  <p>
+    RDP grip packet:
+    <div id="response"></div>
+  </p>
+
+  <p>
+    JSON:
+    <div id="json"></div>
+  </p>
+  <script src="bundle.js" type="text/javascript"></script>
+</body>
+</html>
