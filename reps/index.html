@@ -28,10 +28,17 @@
 
   <p>
     Next, you can evaluate an expression within target page scope and see how
-    the result (grip) looks like when rendered using reps:
+    the result (grip) looks like when rendered using reps (you might want to
+    change the default mode):
     <br/>
     <button onclick="onEvaluate()">Evaluate</button>
     <input id="expression" value="_a"></input>
+    <select id="mode">
+      <option>tiny</option>
+      <option selected="true">short</option>
+      <option>long</option>
+      <option>&lt;default&gt;</option>
+    </select>
   </p>
 
   <p>

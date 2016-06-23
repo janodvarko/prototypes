@@ -31,6 +31,9 @@ window._a = {
   array: [1, 2, 3,],
 }
 
+let h1 = $("h1");
+window._textNode = h1.firstChild;
+
 // Client Connect
 
 var tabTarget = null;
@@ -55,9 +58,7 @@ window.onEvaluate = function() {
   let expression = $("#expression").value;
 
   getGrip(tabTarget, expression).then(grip => {
-    let rep = Rep({object: grip, defaultRep: Grip});
-    var theApp = ReactDOM.render(rep, $("#result"));
-
+    renderGrip(grip);
     renderResponse(grip);
   });
 }
@@ -74,9 +75,7 @@ window.onParse = function() {
     return;
   }
 
-  let rep = Rep({object: grip, defaultRep: Grip});
-  var theApp = ReactDOM.render(rep, $("#result"));
-
+  renderGrip(grip);
   renderResponse(grip);
 }
 
@@ -86,6 +85,17 @@ function getGrip(target, expression) {
       resolve(res.result);
     });
   });
+}
+
+function renderGrip(grip) {
+  let mode = $("#mode");
+  let rep = Rep({
+    mode: mode.value,
+    object: grip,
+    defaultRep: Grip
+  });
+
+  ReactDOM.render(rep, $("#result"));
 }
 
 function renderResponse(response) {
