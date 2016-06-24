@@ -8,10 +8,13 @@ window.trace = function(message, obj) {
 
 var Tabbar = React.createFactory(require("devtools/client/shared/components/tabs/tabbar"));
 var SidePanel = React.createFactory(require("devtools/client/inspector/components/side-panel"));
+var TabsPopupMenu = React.createFactory(require("devtools/client/shared/components/tabs/tabs-popup-menu"));
 
 // Render the Tabbar
 let content = document.getElementById("content");
-let tabbar = ReactDOM.render(Tabbar({}), content);
+let tabbar = ReactDOM.render(Tabbar({
+  tabsPopupMenu: TabsPopupMenu()
+}), content);
 
 // Shortcuts
 const { div, input, button, label, span } = React.DOM;
