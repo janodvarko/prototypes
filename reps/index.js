@@ -42,7 +42,7 @@ var tabTarget = null;
  * Connect to the backend.
  */
 window.onConnect = function(event) {
-  $("#status").removeAttribute("error");
+  $("#status").classList.remove("error");
 
   connectClient().then(response => {
     if (!response.tabs) {
