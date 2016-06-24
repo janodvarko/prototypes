@@ -4,7 +4,7 @@
   "description": "Test environment for reps",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server"
   },
   "author": "Jan Odvarko",
   "license": "ISC",
@@ -13,6 +13,7 @@
     "ff-devtools-libs": "=0.1.6",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "webpack-dev-server": "^1.14.1",
     "ws": "^1.0.1"
   },
   "devDependencies": {
