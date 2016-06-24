@@ -42,7 +42,15 @@ var tabTarget = null;
  * Connect to the backend.
  */
 window.onConnect = function(event) {
+  $("#status").removeAttribute("error");
+
   connectClient().then(response => {
+    if (!response.tabs) {
+      $("#status").innerHTML = "Connection failed";
+      $("#status").classList.add("error");
+      return;
+    }
+
     let selectedTab = response.tabs[0];
     connectTab(selectedTab).then(target => {
       $("#status").innerHTML = "Connected to: " + selectedTab.url;

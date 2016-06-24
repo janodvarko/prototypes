@@ -1,6 +1,6 @@
 <html class="theme-light theme-firebug">
 <head>
-  <title>Reps Test</title>
+  <title>Reps Tester</title>
   <meta charset="utf-8"/>
   <script type="text/javascript" src="./node_modules/react/dist/react.js"></script>
   <script type="text/javascript" src="./node_modules/react-dom/dist/react-dom.js"></script>
@@ -10,24 +10,28 @@
   <link rel="stylesheet" type="text/css" href="resource:///modules/devtools/client/themes/variables.css">
 </head>
 <body class="theme-body">
-  <h1>Rep Tester</h1>
+  <h1>Reps Tester</h1>
   <p>This tool is intended as simple <b>Reps</b> tester. It connects to the backend
   runnning in <i>this</i> browser. It attaches to the first tab running in this
   browser so, make sure this page is <i>not</i> the first tab otherwise it
   would attach to itself and cause the browser to freeze. This is known limitation
   and it'll be fixed later.</p>
 
+  <h2>Connection</h2>
+  <p>First you need to run <code>listen 6080</code> command in the Developer Toolbar (Shift+F2).
+  You also need to start development server. Clone <code>https://github.com/jlongster/debugger.html.git</code>
+  and start the server by executing <code>npm start</code> the root directory.<p>
+
   <p>
-    First you need to run <i>listen 6080</i> command in the Developer Toolbar (Shift+F2).
-    Then you can connect to the backend (you need to Connect after every page refresh,
-    listen command execute just once)
+    Now, you can connect to the backend (do it after every page refresh)
     <br/>
     <button onclick="onConnect()">Connect</button>
     <span id="status"></button>
   </p>
 
+  <h2>Evaluation</h2>
   <p>
-    Next, you can evaluate an expression within target page scope and see how
+    You can evaluate an expression within target page scope and see how
     the result (grip) looks like when rendered using reps (you might want to
     change the default mode):
     <br/>
@@ -45,7 +49,9 @@
     As an alternative to live grip access, you might want to read
     a grip from an existing JSON string (you don't have to be connected
     to the backend in this case):
-    <textarea id="mockedGrip" cols="100"></textarea>
+    <br/>
+    <textarea id="mockedGrip" cols="50" rows="3"></textarea>
+    <br/>
     <button onclick="onParse()">Parse</button>
     <div id="parseError"></div>
   </p>

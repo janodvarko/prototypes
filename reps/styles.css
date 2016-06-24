@@ -4,6 +4,10 @@
   color: green;
 }
 
+#status.error {
+  color: red;
+}
+
 #result,
 .treeTable,
 #json {
@@ -22,5 +26,15 @@
 }
 
 p {
-  width: 600px;
+  margin-top: 10px;
+}
+
+code {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  background-color: rgb(243, 243, 243);
+}
+
+h2 {
+  margin-bottom: 0;
 }
