@@ -3,7 +3,6 @@
 const { DebuggerClient } = require("devtools-sham/shared/client/main");
 const { DebuggerTransport } = require("devtools-sham/transport/transport");
 const { TargetFactory } = require("devtools-sham/client/framework/target");
-const defer = require("devtools/shared/defer");
 
 let debuggerClient = null;
 let threadClient = null;
@@ -31,33 +30,32 @@ function lookupTabTarget(tab) {
 }
 
 function connectClient() {
-  const deferred = defer();
-  let isConnected = false;
+  return new Promise((resolve, reject) => {
+    let isConnected = false;
 
-  const socket = new WebSocket("ws://localhost:9000");
-  const transport = new DebuggerTransport(socket);
-  debuggerClient = new DebuggerClient(transport);
+    const socket = new WebSocket("ws://localhost:9000");
+    const transport = new DebuggerTransport(socket);
+    debuggerClient = new DebuggerClient(transport);
 
-  // TODO: the timeout logic should be moved to DebuggerClient.connect.
-  setTimeout(() => {
-    if (isConnected) {
-      return;
-    }
+    // TODO: the timeout logic should be moved to DebuggerClient.connect.
+    setTimeout(() => {
+      if (isConnected) {
+        return;
+      }
 
-    deferred.resolve([]);
-  }, 1000);
+      resolve([]);
+    }, 1000);
 
-  debuggerClient.connect().then(() => {
-    isConnected = true;
-    return debuggerClient.listTabs().then(response => {
-      deferred.resolve(response);
+    debuggerClient.connect().then(() => {
+      isConnected = true;
+      return debuggerClient.listTabs().then(response => {
+        resolve(response);
+      });
+    }).catch(err => {
+      console.log(err);
+      reject();
     });
-  }).catch(err => {
-    console.log(err);
-    deferred.reject();
   });
-
-  return deferred.promise;
 }
 
 function connectTab(tab) {
