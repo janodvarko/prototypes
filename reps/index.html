@@ -18,9 +18,13 @@
   and it'll be fixed later.</p>
 
   <h2>Connection</h2>
-  <p>First you need to run <code>listen 6080</code> command in the Developer Toolbar (Shift+F2).
-  You also need to start development server. Clone <code>https://github.com/jlongster/debugger.html.git</code>
-  and start the server by executing <code>npm start</code> the root directory.<p>
+  <ol>
+    <li>Run <code>listen 6080</code> command in the Developer Toolbar (Shift+F2).</li>
+    <li>Start development server. Clone <code>https://github.com/jlongster/debugger.html.git</code>
+  and start the server by executing <code>npm start</code> the root directory.</li>
+    <li>Set <code>devtools.debugger.prompt-connection</code> to <code>false</code>
+    (this is known limiation of debugger.html project).</li>
+  </ol>
 
   <p>
     Now, you can connect to the backend (do it after every page refresh)

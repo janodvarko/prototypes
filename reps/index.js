@@ -43,6 +43,7 @@ var tabTarget = null;
  */
 window.onConnect = function(event) {
   $("#status").classList.remove("error");
+  $("#status").innerHTML = "";
 
   connectClient().then(response => {
     if (!response.tabs) {
