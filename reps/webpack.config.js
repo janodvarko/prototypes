@@ -2,6 +2,7 @@
 
 "use strict";
 
+var config = require("./config");
 var webpack = require("webpack");
 var path = require("path");
 
@@ -21,7 +22,7 @@ module.exports = {
         loader: 'babel-loader',
         exclude: [
           "node_modules",
-           path.join(__dirname, "../../../../mozilla.org/")
+           path.join(__dirname, config.firefoxSrc)
         ],
         query: {
           presets: ['es2015', 'react']
@@ -38,7 +39,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "devtools": path.join(__dirname, "../../../../mozilla.org/fx-team/devtools"),
+      "devtools": path.join(__dirname, config.firefoxSrc + "/devtools"),
       //"devtools": path.join(__dirname, "./node_modules/debugger.html/public/js/lib/devtools"),
       "devtools-sham": path.join(__dirname, "./node_modules/debugger.html/public/js/lib/devtools-sham"),
       "sdk": path.join(__dirname, "./node_modules/debugger.html/public/js/lib/devtools-sham/sdk")
