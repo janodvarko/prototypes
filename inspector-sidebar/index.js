@@ -19,4 +19,9 @@ function addTab(inspector, id, title, selected) {
   var tabPanel = React.createFactory(TabPanel);
   inspector.sidebar._tabbar.addTab(id, title, selected, tabPanel);
   inspector.sidebar.emit("new-tab-registered", id);
+
+  // As soon as bug 1305979 is fixed the code should look like
+  // as follows:
+  // var tabPanel = React.createFactory(TabPanel);
+  // inspector.addSidebarTab(id, title, selected, tabPanel);
 }
