@@ -1,0 +1,1 @@
+C:\src\github.com\janodvarko\prototypes\inspector-sidebar\
