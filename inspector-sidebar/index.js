@@ -23,5 +23,5 @@ function addTab(inspector, id, title, selected) {
   // As soon as bug 1305979 is fixed the code should look like
   // as follows:
   // var tabPanel = React.createFactory(TabPanel);
-  // inspector.addSidebarTab(id, title, selected, tabPanel);
+  // inspector.addSidebarTab(id, title, tabPanel, selected);
 }
