@@ -1,7 +1,7 @@
 /* See license.txt for terms of usage */
 
 // Minimal width of column in %
-export const MIN_COLUMN_WIDTH = 5;
+export const MIN_COLUMN_WIDTH = 30; // in px
 
 export const defaultColumnsData = [
   {
@@ -38,7 +38,7 @@ export const defaultColumnsData = [
     width: 5,
   }, {
     name: "waterfall",
-    minWidth: MIN_COLUMN_WIDTH,
+    minWidth: 150,
     width: 25,
   },
 ];
