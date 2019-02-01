@@ -43,8 +43,6 @@ class RequestListHeader extends Component {
     doc.documentElement.style.cursor = "ew-resize";
     this.requestListHeader.classList.add("dragging");
 
-    console.log("onStartMove");
-
     // this setState causes a call to render; maybe we can get rid of it later
     // This causes rerender - we don't want that.
     /*this.setState({
@@ -55,27 +53,18 @@ class RequestListHeader extends Component {
   /**
    * Helper method to convert pixels into percent based on parent container width
    */
-  px2percent(pxWidth, totalWidth) {
-    const percent = Math.round((100 * pxWidth / totalWidth) * 100) / 100;
+  px2percent(pxWidth, parentWidth) {
+    const percent = Math.round((100 * pxWidth / parentWidth) * 100) / 100;
     return percent;
   }
 
   onStopMove(columnsData) {
-    // let temp = [...columnsData.values()].map(value => value.name + ":" + value.width);
-    // console.log("onStopMove before recalc:", temp);
-
-    console.log("onStopMove");
-
     // Store the new column widths into prefs
     const { columns } = this.props;
     const visibleColumns = HEADERS.filter((header) => columns[header.name]);
 
-    let totalWidth = 0;
-    for (let i = 0; i < visibleColumns.length; i++) {
-      const name = visibleColumns[i].name;
-      const headerRef = this.refs[`${name}Header`];
-      totalWidth += headerRef.clientWidth;
-    }
+    const parentEl = document.querySelector(".requests-list-headers");
+    const parentWidth = parentEl.clientWidth;
 
     // For each visible column update minWidth and width in columnsData Map
     for (let i = 0; i < visibleColumns.length; i++) {
@@ -91,7 +80,7 @@ class RequestListHeader extends Component {
 
       const headerRef = this.refs[`${name}Header`];
       // Get actual column width, change into %, update columnsData Map
-      const width = this.px2percent(headerRef.clientWidth, totalWidth);
+      const width = this.px2percent(headerRef.clientWidth, parentWidth);
       columnsData.set(name, {name, minWidth, width});
     }
 
@@ -105,7 +94,9 @@ class RequestListHeader extends Component {
     this.requestListHeader.classList.remove("dragging");
   }
 
-  onMove(visibleColumns, name, x, y) {
+  onMove(visibleColumns, columnsData, name, x, y) {
+    const parentEl = document.querySelector(".requests-list-headers");
+    const parentWidth = parentEl.clientWidth;
 
     // Get the current column handle and save its old width
     // before changing so we can compute the difference in width
@@ -120,8 +111,6 @@ class RequestListHeader extends Component {
       compensateHeaderName = visibleColumns[visibleColumns.length - 2].name;
       // When resizing the last column before waterfall
       // then the compensate column is waterfall
-      // TODO: in chrome - when resizing the last column before waterfall,
-      // ALL columns compensate (autosize)
       if (name === compensateHeaderName) {
         compensateHeaderName = "waterfall";
       }
@@ -131,34 +120,36 @@ class RequestListHeader extends Component {
     const compensateHeaderRef = this.refs[`${compensateHeaderName}Header`];
     const oldCompensateWidth = compensateHeaderRef.clientWidth;
 
+    const sumOfBothColumns = oldWidth + oldCompensateWidth;
+
+    // get minimal widths for both changed columns (in px)
+    let minWidth;
+    let minCompensateWidth;
+
+    if (columnsData.has(name)) {
+      minWidth = (columnsData.get(name)).minWidth;
+    }
+    if (columnsData.has(compensateHeaderName)) {
+      minCompensateWidth = (columnsData.get(compensateHeaderName)).minWidth;
+    }
+
     // Calculate new width (according to the mouse x-position) and set to .style
-    const newWidth = x - headerRef.offsetLeft;
-    headerRef.style.width = `${newWidth}px`;
-    // Save the real width (computed) - it can be influenced by minwidth
-    const realWidth = headerRef.clientWidth;
-    const diffWidth = oldWidth - realWidth;
+    // Do not allow to set it below minWidth
+    const newWidth = Math.max(x - headerRef.offsetLeft, minWidth);
+    headerRef.style.width = `${this.px2percent(newWidth, parentWidth)}%`;
 
-    // Calculate new width for compensate column as the original width + difference
-    const newCompensateWidth = diffWidth + compensateHeaderRef.clientWidth;
-    compensateHeaderRef.style.width = `${newCompensateWidth}px`;
-    // Save the real compensate width (computed) - it can be influenced by minwidth
-    const realCompensateWidth = compensateHeaderRef.clientWidth;
+    const diffWidth = oldWidth - newWidth;
 
-    // When the realCompensateWidth is no more changing because of minWidth
-    // the resize should not be done and the style should be reset
-    if (realCompensateWidth !== newCompensateWidth) {
-      const sumOfBothColumns = oldWidth + oldCompensateWidth;
-      headerRef.style.width = `${sumOfBothColumns - realCompensateWidth}px`;
+    // Calculate new compensate width as the original width + difference
+    // Do not allow to set it below minCompensateWidth
+    const newCompensateWidth =
+      Math.max(diffWidth + oldCompensateWidth, minCompensateWidth);
+    compensateHeaderRef.style.width = `${this.px2percent(newCompensateWidth, parentWidth)}%`;
+
+    // Do not allow to reset size of column when compensate column is at minWidth
+    if (newCompensateWidth === minCompensateWidth) {
+      headerRef.style.width = `${this.px2percent((sumOfBothColumns - newCompensateWidth), parentWidth)}%`;
     }
-
-    let totalWidth = 0;
-    for (let i = 0; i < visibleColumns.length; i++) {
-      const name = visibleColumns[i].name;
-      const headerRef = this.refs[`${name}Header`];
-      totalWidth += headerRef.clientWidth;
-    }
-
-    console.log("onMove => totalWidth [px]: " + totalWidth);
   }
 
   // Preference helpers (these might be in shared module)
@@ -208,21 +199,17 @@ class RequestListHeader extends Component {
     const array = [...columnsData.values()];
     const sum = array.reduce((acc, value) => acc + value.width, 0);
     console.log("renderColumn [" +
-      array.map(value => value.name + ":" + value.width) +
+      array.map(value => value.name + ":" + value.width + " min:" + value.minWidth) +
       "] => " + sum);
 
-    // Get the saved column width and set it for rendering
-    // if it doesn't exist use 20px - just for now
     let columnStyle;
-
-    // The pref for this column width exists, set the style
-    // Otherwise leave the style empty - should come from CSS
+    // If the pref for this column width exists, set the style
     if (columnsData.has(name)) {
       const oneColumnEl = columnsData.get(name);
       let colWidth = oneColumnEl.width ?
-      oneColumnEl.width : oneColumnEl.min;
+      oneColumnEl.width : oneColumnEl.minWidth;
       if (!colWidth) {
-        colWidth = 10;
+        colWidth = MIN_COLUMN_WIDTH;
       }
       columnStyle = {
         width: colWidth + "%",
@@ -246,7 +233,7 @@ class RequestListHeader extends Component {
             className="column-resizer"
             onStart= {() => this.onStartMove()}
             onStop= {() => this.onStopMove(columnsData)}
-            onMove= {(x, y) => this.onMove(visibleColumns, name, x, y)} />}
+            onMove= {(x, y) => this.onMove(visibleColumns, columnsData, name, x, y)} />}
       </div>
     )
   }
