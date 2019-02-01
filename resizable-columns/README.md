@@ -8,6 +8,7 @@ Open http://localhost:3000 to view it in the browser.
 
 ## Comments
 
+* Do not set state in onStartMove
 * Inserting thead at the right position immediately fixed the 100% header size
 * position:absolute removed from .requests-list-contents
 * Using `width` not `minWidth`
