@@ -24,12 +24,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
-  width: 100px;
 }
 
 .requests-list-header-item {
   border-bottom: 1px solid lightgray;
-  min-width: 15px !important;
 }
 
 .requests-list-header-item:hover {
@@ -67,7 +65,7 @@
                                 transparent 85%) 1 1;
   border-width: 0;
   border-inline-start-width: 1px;
-  padding-inline-start: 16px;
+  /* padding-inline-start: 16px; */
   width: 100%;
   min-height: 23px;
   text-align: center;
