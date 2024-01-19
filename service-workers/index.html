@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Service Worker Test Page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+  <h1>Service Worker Test Page</h1>
+
+  <p>The following pref needs to be set to true</p>
+  <code>devtools.debugger.features.windowless-service-workers</code>
+
+
+  <h2>Test Case #1 - Threads Panel</h2>
+  <ol>
+  <li>Open Firefox Developer tools</li>
+  <li>Select the Debugger panel and click this button
+    <button onclick="onRegisterWorker()">Register Worker</button></li>
+  <li>Check out the Threads side panel, it should show <code>service-worker.js (active)</code> file</li>
+  <li>You can unregister the service worker from <code>about:debugging</code> page</li>
+  <li>You can unregister the service worker by clicking on this button:
+    <button onclick="onUnregisterWorker()">Unregister Worker</button>
+    (in case the worker was registered in this page session)</li>
+  </li>
+  </p>
+  </ol>
+
+  <h2>Test Case #2 - Worker State</h2>
+  <ol>
+  <li>Assuming that the worker is registered from the test case #1</li>
+  <li>Open Firefox Developer tools and select the Debugger panel</li>
+  <li>Create BP in <code>service-worker.js, line 33</code></li>
+  <li>Open <code>about:debugging</code> page and unregister the service worker</li>
+  <li>Click this button
+    <button onclick="onRegisterWorker()">Register Worker</button>, the BP should hit</li>
+  <li>Check out the Threads side panel, it should show <code>service-worker.js (installing)</code> - the state should be OK</li>
+  <li>Resume Debugger</li>
+  <li>Check out the Threads side panel, it should show <code>service-worker.js (active)</code> - the state should be OK</li>
+  </ol>
+  </p>
+
+  <h2>Test Case #3 - Scope</h2>
+  <ol>
+  <li>Assuming that the worker is registered and active from the test case #1</li>
+  <li>Open Firefox Developer tools and select the Debugger panel</li>
+  <li>The Threads side panel should show <code>service-worker.js (active)</code> and <code>Main Thread</code></li>
+  <li>Create new expression in the Watch panel <code>this</code></li>
+  <li>Change selection in the Threads panel, the value of <code>this</code> expression should change to
+    <code>ServiceWorkerGlobalScope</code> for the worker and <code>Window</code> for the main thread.</li>
+  </ol>
+  </p>
+
+  <h2>Test Case #5 - XHR & Console API</h2>
+  <ol>
+  <li>Assuming that the worker is registered and active from the test case #1</li>
+  <li>Open Firefox Developer tools and select the Network panel + split console</li>
+  <li>You can execute XHR on page and see how it goes through the SW (check out the Console panel for <code>fetch</code> log)
+    <button onclick="onGetSmallImage()">XHR (on page)</button></li>
+  <li>Execute XHR from within the worker and see whether it's properly displayed in the Network panel
+    <button onclick="onExecuteXHR()">Execute XHR (from SW)</button></li>
+  <li>Execute <code>console.log</code> from within the worker and see whether it's properly displayed in the Console panel
+    <button onclick="onExecuteConsoleLog()">Execute Console log (from SW)</button></li>
+  </ol>
+  </p>
+  <br/>
+
+  <h2>Tips for other test cases</h2>
+  <ol>
+  <li>The Call stack and Scopes side panel should be properly updated when switching between paused and resumed workers</li>
+  <li>Full debugging functionality should work (Variable Preview, Console expressions, WASM, etc)</li>
+  <li>Reloading the page when a worker is paused should not break the Debugger</li>
+  <li>Worker created within a worker should work as expected</li>
+  <li>Source file for the worker should be available in the Sources tree when the worker is registered. It should disappear when it's unregistered.</li>
+  <li>See other <a href="http://janodvarko.cz/tests/debugger/workers/">test cases</a> related to regular workers</li>
+  </ol>
+  </p>
+
+  <h2>Other test pages</h2>
+  <ol>
+  <li>Regular workers <a href="http://janodvarko.cz/tests/debugger/workers/">test cases</a></li>
+  <li>Waiting <a href="http://firefox-devtools-waiting-sw.glitch.me/">worker</a> (good for seeing worker states)</li>
+  <li>Nested <a href="https://firefox-devtools-nested-workers.glitch.me/">worker</a></li>
+  <li>Sending messages between <a href="http://dbg-workers.glitch.me/">workers</a></li>
+  </ol>
+
+</body>
+</html>

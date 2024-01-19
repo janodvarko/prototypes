@@ -1,0 +1,14 @@
+{
+  "firstName": "Jan",
+  "lastName": "Odvarko",
+  "children": {
+    "son1": "Tomas",
+    "daughter": "Katerina",
+    "son2": "Teodor"
+  },
+  "longvalue": "012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789",
+  "arr": [
+    45
+  ]
+}
+
